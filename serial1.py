@@ -6,6 +6,7 @@ import logging
 import logging.handlers
 import syslog
 
+#test commit 
 
 GPIO.setmode(GPIO.BCM)
 shot=3
