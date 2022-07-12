@@ -2,11 +2,7 @@ import time
 import re
 import serial
 import RPi.GPIO as GPIO
-import logging
-import logging.handlers
 import syslog
-
-#test commit 
 
 GPIO.setmode(GPIO.BCM)
 shot=3
@@ -37,14 +33,19 @@ def comparing(pas):
     print(pas)
     if str(pas)==str(var):
         opening()
-        syslog.syslog(syslog.LOG_WARNING,"LOCK OPENED VIA MAGIC CODE")
+        syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
 def opening():
     GPIO.output(shot,GPIO.HIGH)
+    print("lock opened")
+    syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
     time.sleep(30)
-    print("done")
+    GPIO.output(shot,GPIO.LOW)
+    syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
+    print("Lock closed")
+    GPIO.cleanup()
 while 1:
     inp=ser.readline()
     pas=inp.decode("utf-8")
@@ -56,7 +57,7 @@ while 1:
             comparing(pas)
         else:
             print("kod nie zawiera GUID")
-            syslog.syslog(syslog.LOG_WARNING," SCANNED CODE IS NOT GUID ")
+            syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE IS NOT GUID")
 GPIO.cleanup()    
     
     
