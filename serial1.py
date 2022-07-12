@@ -40,14 +40,11 @@ def comparing(pas):
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
-    
 def opening():
     GPIO.output(shot,GPIO.HIGH)
     time.sleep(30)
-    print("odczekane")
-
+    print("done")
 while 1:
-    
     inp=ser.readline()
     pas=inp.decode("utf-8")
     pas=pas[0:-1]
@@ -59,8 +56,6 @@ while 1:
         else:
             print("kod nie zawiera GUID")
             syslog.syslog(syslog.LOG_WARNING," SCANNED CODE IS NOT GUID ")
-        
-            
 GPIO.cleanup()    
     
     
