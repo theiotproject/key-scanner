@@ -3,10 +3,12 @@ import re
 import serial
 import RPi.GPIO as GPIO
 import syslog
+import requests
 
-GPIO.setmode(GPIO.BCM)
-shot=3
-GPIO.setup(shot,GPIO.OUT)
+
+
+shot=2
+
 ser = serial.Serial(
     port='/dev/ttyACM0',
     baudrate = 9600,
@@ -29,8 +31,6 @@ def comparing(pas):
     f=open("/etc/magic.guid","r")
     var=f.read()
     var=var[:-1]
-    print (var)
-    print(pas)
     if str(pas)==str(var):
         opening()
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
@@ -38,15 +38,17 @@ def comparing(pas):
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
 def opening():
-    GPIO.output(shot,GPIO.HIGH)
+    GPIO.output(shot, False)
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
     time.sleep(30)
-    GPIO.output(shot,GPIO.LOW)
+    GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     print("Lock closed")
     GPIO.cleanup()
 while 1:
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(shot,GPIO.OUT)
     inp=ser.readline()
     pas=inp.decode("utf-8")
     pas=pas[0:-1]
