@@ -4,11 +4,17 @@ import serial
 import RPi.GPIO as GPIO
 import syslog
 import requests
+import os
+import pty
 
 
+master, slave = pty.openpty()
+s_name = os.ttyname(slave)
+
+fser = serial.Serial(s_name)
 
 shot=2
-
+GPIO.setwarnings(False)
 ser = serial.Serial(
     port='/dev/ttyACM0',
     baudrate = 9600,
@@ -32,34 +38,43 @@ def comparing(pas):
     var=f.read()
     var=var[:-1]
     if str(pas)==str(var):
-        opening()
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
+        opening()
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
 def opening():
     GPIO.output(shot, False)
     print("lock opened")
+    print(GPIO.input(shot))
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
     time.sleep(30)
     GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     print("Lock closed")
+    print(GPIO.input(shot))
+    #GPIO.cleanup()
+try:
     GPIO.cleanup()
-while 1:
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(shot,GPIO.OUT)
-    inp=ser.readline()
-    pas=inp.decode("utf-8")
-    pas=pas[0:-1]
-    if pas!="":
-        #print(pas)
-        syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
-        if isValidGUID(pas)==True:
-            comparing(pas)
-        else:
-            print("kod nie zawiera GUID")
-            syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE IS NOT GUID")
+finally:
+    while 1:
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(shot,GPIO.OUT)
+        if(GPIO.input(shot)==0):
+            GPIO.output(shot,True)
+        inp=ser.readline()
+        pas=inp.decode("utf-8")
+        pas=pas[0:-1]
+        if pas!="":
+            
+            #print(pas)
+            syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
+            if isValidGUID(pas)==True:
+                comparing(pas)
+            else:
+                print("kod nie zawiera GUID")
+                syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE IS NOT GUID")
+   
 GPIO.cleanup()    
     
     
