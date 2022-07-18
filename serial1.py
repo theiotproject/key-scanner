@@ -40,7 +40,6 @@ def comparing(pas):
 def opening():
     GPIO.output(shot, False)
     print("lock opened")
-    #print(GPIO.input(shot))
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
     time.sleep(30)
     GPIO.output(shot,True)
