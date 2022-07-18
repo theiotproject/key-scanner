@@ -3,21 +3,14 @@ import re
 import serial
 import RPi.GPIO as GPIO
 import syslog
-import requests
-import os
-import pty
-
-
-
-master, slave = pty.openpty()
-s_name = os.ttyname(slave)
-
-fser = serial.Serial(s_name)
+from datetime import datetime
+from datetime import date
+import datetime as dt  
 
 shot=2
 GPIO.setwarnings(False)
 ser = serial.Serial(
-    port='/dev/ttyACM0',
+    port='/dev/pts/2',
     baudrate = 9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -53,8 +46,34 @@ def opening():
     GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     print("Lock closed")
-    #print(GPIO.input(shot))
-    #GPIO.cleanup()
+
+def isNowInTimePeriod(startTime, endTime, nowTime): 
+    if startTime < endTime: 
+        return nowTime >= startTime and nowTime <= endTime 
+    else: 
+        return nowTime >= startTime or nowTime <= endTime 
+
+def validate(code):
+    if len(code)==30:
+        e=datetime.now()
+        if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
+            if isNowInTimePeriod (dt.time(e.hour,e.minute-1), dt.time(e.hour,e.minute+1), dt.time(int(code[11]+code[12]),int(code[14]+code[15]))):
+                print("Correct virtual key")
+                opening_key()
+                return True
+        else:
+            return False
+    else: 
+        return False
+def opening_key():
+    GPIO.output(shot, False)
+    print("lock opened")
+    syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
+    time.sleep(15)
+    GPIO.output(shot,True)
+    syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
+    print("Lock closed")
+
 try:
     while 1:
         GPIO.setmode(GPIO.BCM)
@@ -65,14 +84,16 @@ try:
         pas=inp.decode("utf-8")
         pas=pas[0:-1]
         if pas!="":
-            
-            #print(pas)
+            print(pas)
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
             if isValidGUID(pas)==True:
                 comparing(pas)
+            elif validate(pas):
+                syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             else:
-                print("kod nie zawiera GUID")
-                syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE IS NOT GUID")
+                syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
+            
+                
 except :
     if(GPIO.input(shot)==0):
                 GPIO.output(shot,True)
