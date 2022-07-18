@@ -10,13 +10,21 @@ import datetime as dt
 shot=2
 GPIO.setwarnings(False)
 ser = serial.Serial(
-    port='/dev/pts/2',
+    port='/dev/ttyS91',
     baudrate = 9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
     timeout=1
 )
+
+def regg(text):
+    regex="[A-Z0-9]{10}"
+   
+    if(re.search(regex, text)):
+        return True
+    else:
+        return False
 
 def isValidGUID(str):
     regex = "^[{]?[0-9a-fA-F]{8}" + "-([0-9a-fA-F]{4}-)" + "{3}[0-9a-fA-F]{12}[}]?$"
@@ -47,6 +55,7 @@ def opening():
     print("Lock closed")
 
 def isNowInTimePeriod(startTime, endTime, nowTime): 
+    
     if startTime < endTime: 
         return nowTime >= startTime and nowTime <= endTime 
     else: 
@@ -54,12 +63,32 @@ def isNowInTimePeriod(startTime, endTime, nowTime):
 
 def validate(code):
     if len(code)==30:
-        e=datetime.now()
-        if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
-            if isNowInTimePeriod (dt.time(e.hour,e.minute-1), dt.time(e.hour,e.minute+1), dt.time(int(code[11]+code[12]),int(code[14]+code[15]))):
-                print("Correct virtual key")
-                opening_key()
-                return True
+        if regg(code[-10:]):
+            e=datetime.now()
+            if e.minute==59:
+                if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
+                    if isNowInTimePeriod (dt.time(e.hour,e.minute-2), dt.time(e.hour,e.minute), dt.time(int(code[11]+code[12]),int(code[14]+code[15])-1)):
+                        print("Correct virtual key")
+                        opening_key()
+                        return True
+                else:
+                    return False
+            elif e.minute==0:
+                if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
+                    if isNowInTimePeriod (dt.time(e.hour,e.minute), dt.time(e.hour,e.minute+2), dt.time(int(code[11]+code[12]),int(code[14]+code[15])+1)):
+                        print("Correct virtual key")
+                        opening_key()
+                        return True
+                else:
+                    return False
+            else:
+                if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
+                    if isNowInTimePeriod (dt.time(e.hour,e.minute-1), dt.time(e.hour,e.minute+1), dt.time(int(code[11]+code[12]),int(code[14]+code[15]))):
+                        print("Correct virtual key")
+                        opening_key()
+                        return True
+                else:
+                    return False
         else:
             return False
     else: 

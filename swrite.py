@@ -3,7 +3,7 @@ import serial
 import os
 
 ser = serial.Serial(
-        port='/dev/pts/3',
+        port='/dev/ttyS90',
         baudrate = 9600,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
