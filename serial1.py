@@ -4,8 +4,9 @@ import serial
 import RPi.GPIO as GPIO
 import syslog
 from datetime import datetime
-from datetime import date
-import datetime as dt  
+#from datetime import date
+#import datetime as dt  
+import datetime
 
 shot=2
 GPIO.setwarnings(False)
@@ -17,7 +18,9 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
     timeout=1
 )
-
+def time_in_range(start, end, current):
+    """Returns whether current is in the range [start, end]"""
+    return start <= current <= end
 def regg(text):
     regex="[A-Z0-9]{10}"
    
@@ -54,41 +57,31 @@ def opening():
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     print("Lock closed")
 
-def isNowInTimePeriod(startTime, endTime, nowTime): 
-    
-    if startTime < endTime: 
-        return nowTime >= startTime and nowTime <= endTime 
-    else: 
-        return nowTime >= startTime or nowTime <= endTime 
-
 def validate(code):
     if len(code)==30:
         if regg(code[-10:]):
-            e=datetime.now()
-            if e.minute==59:
-                if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
-                    if isNowInTimePeriod (dt.time(e.hour,e.minute-2), dt.time(e.hour,e.minute), dt.time(int(code[11]+code[12]),int(code[14]+code[15])-1)):
-                        print("Correct virtual key")
-                        opening_key()
-                        return True
-                else:
-                    return False
-            elif e.minute==0:
-                if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
-                    if isNowInTimePeriod (dt.time(e.hour,e.minute), dt.time(e.hour,e.minute+2), dt.time(int(code[11]+code[12]),int(code[14]+code[15])+1)):
-                        print("Correct virtual key")
-                        opening_key()
-                        return True
-                else:
-                    return False
+            current = datetime.datetime.now().time()
+            ctime=datetime.time(int(code[11]+code[12]),int(code[14]+code[15]),0)
+            if(current.minute==00):
+                print("00")
+                start = datetime.time(current.hour-1, 59, 0)
+                end = datetime.time(current.hour, current.minute+1, 59)
+                if (time_in_range(start, end, ctime)):
+                    print("00")
+                    opening_key()
+            elif(current.minute==59):
+                start = datetime.time(current.hour, current.minute-1, 0)
+                end = datetime.time(current.hour+1, 00, 59)
+                if (time_in_range(start, end, ctime)):
+                    print("59")
+                    opening_key()
             else:
-                if datetime.strptime(code[2:10], '%y-%m-%d').date()==date.today():
-                    if isNowInTimePeriod (dt.time(e.hour,e.minute-1), dt.time(e.hour,e.minute+1), dt.time(int(code[11]+code[12]),int(code[14]+code[15]))):
-                        print("Correct virtual key")
-                        opening_key()
-                        return True
-                else:
-                    return False
+                start = datetime.time(current.hour, current.minute-1, 0)
+                end = datetime.time(current.hour, current.minute+1, 59)
+                print(start, end)
+                if (time_in_range(start, end, ctime)):
+                    print(current)
+                    opening_key()
         else:
             return False
     else: 
@@ -101,7 +94,14 @@ def opening_key():
     GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     print("Lock closed")
-
+def opening_phone():
+        GPIO.output(shot, False)
+        print("lock opened")
+        syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
+        time.sleep(5)
+        GPIO.output(shot,True)
+        syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
+        print("Lock closed")
 try:
     while 1:
         GPIO.setmode(GPIO.BCM)
@@ -118,8 +118,11 @@ try:
                 comparing(pas)
             elif validate(pas):
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
+            elif pas=="secret":
+                opening_phone()
             else:
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
+            
             
                 
 except :
