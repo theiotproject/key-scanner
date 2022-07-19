@@ -4,9 +4,39 @@ import serial
 import RPi.GPIO as GPIO
 import syslog
 from datetime import datetime
-#from datetime import date
-#import datetime as dt  
 import datetime
+import paho.mqtt.client as mqttClient
+
+ 
+def on_connect(client, userdata, flags, rc):
+ 
+    if rc == 0:
+ 
+        print("Connected to broker")
+ 
+        global Connected                #Use global variable
+        Connected = True                #Signal connection 
+ 
+    else:
+ 
+        print("Connection failed")
+ 
+Connected = False   #global variable for the state of the connection
+ 
+broker_address= "192.168.8.164"
+port = 1883
+user = "nikodem"
+password = "nikodem"
+ 
+client = mqttClient.Client("Publisher")               #create new instance
+client.username_pw_set(user, password=password)    #set username and password
+client.on_connect= on_connect                      #attach function to callback
+client.connect(broker_address, port=port)          #connect to broker
+ 
+client.loop_start()        #start the loop
+ 
+while Connected != True:    #Wait for connection
+    time.sleep(0.1)
 
 shot=2
 GPIO.setwarnings(False)
@@ -19,7 +49,6 @@ ser = serial.Serial(
     timeout=1
 )
 def time_in_range(start, end, current):
-    """Returns whether current is in the range [start, end]"""
     return start <= current <= end
 def regg(text):
     regex="[A-Z0-9]{10}"
@@ -44,17 +73,21 @@ def comparing(pas):
     var=var[:-1]
     if str(pas)==str(var):
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
+        client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
         opening()
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
+        client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH MAGIC FILE"))
 def opening():
     GPIO.output(shot, False)
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-    time.sleep(30)
+    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK OPENED"))
+    time.sleep(10)
     GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
+    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
 
 def validate(code):
@@ -90,18 +123,12 @@ def opening_key():
     GPIO.output(shot, False)
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
+    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK.OPENED"))
     time.sleep(15)
     GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
+    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
-def opening_phone():
-        GPIO.output(shot, False)
-        print("lock opened")
-        syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-        time.sleep(5)
-        GPIO.output(shot,True)
-        syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
-        print("Lock closed")
 try:
     while 1:
         GPIO.setmode(GPIO.BCM)
@@ -114,22 +141,23 @@ try:
         if pas!="":
             print(pas)
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
+            client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
             if isValidGUID(pas)==True:
                 comparing(pas)
             elif validate(pas):
+                client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
-            elif pas=="secret":
-                opening_phone()
             else:
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
-            
-            
-                
+                client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH ANYTHING"))
+             
 except :
     if(GPIO.input(shot)==0):
                 GPIO.output(shot,True)
                 
     syslog.syslog(syslog.LOG_WARNING,"SCRIPT TERMINATED")
+    client.disconnect()
+    client.loop_stop()
 GPIO.cleanup()    
     
     

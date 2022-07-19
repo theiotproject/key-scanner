@@ -5,6 +5,7 @@ import os
 import paho.mqtt.client as mqttClient
 import time
 import re
+import syslog
 
 ser = serial.Serial(
         port='/dev/ttyS90', 
@@ -35,6 +36,7 @@ def on_message(client, userdata, message):
     var=var.decode()
     print (var)
     ser.write(message.payload+ b'w')
+    syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
   
 Connected = False   #global variable for the state of the connection
   
