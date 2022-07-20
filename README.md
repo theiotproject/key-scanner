@@ -22,6 +22,7 @@ lock has tollerance of ```+-1 minute```, so the key will expire one minute after
  # Additional features
  - Lock is able to open via MQTT after recieving ```secret``` signal
  - Lock is shipped with emergency opening. In order to open it scan QR code with the code matching ```magic.guid``` in /etc folder
+ - Lock can push its logs to mosquitto MQTT broker, which then can forward them to MSQL database
   
   # Requirements
   -Raspberry Pi model B or higher
