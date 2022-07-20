@@ -47,8 +47,8 @@ Connected = False   #global variable for the state of the connection
   
 broker_address= "mysql39.mydevil.net"  #Broker address
 port = 1883                         #Broker port
-user = "nikodem"                    #Connection username
-password = "nikodem"            #Connection password
+user = ""                    #Connection username
+password = ""            #Connection password
   
 client = mqttClient.Client("DB")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
