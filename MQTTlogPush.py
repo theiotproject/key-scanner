@@ -9,10 +9,10 @@ import re
 import mysql.connector
 
 mydb=mysql.connector.connect(
-    host="mysql39.mydevil.net",
-    user="m1463_admin",
-    password="a6e0(-Q+I]sM7e1EH04.u3R.z2mI$K",
-    database="m1463_key_manager"
+    host="",
+    user="",
+    password="",
+    database=""
 )
 print(mydb)
 
