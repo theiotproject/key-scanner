@@ -1,5 +1,5 @@
 # Overview 
-Key-scanner is python based pack of scripts, able to scanm interpret, and authorize QR codes in order to open electronic lock
+Key-scanner is python based pack of scripts, able to scan interpret, and authorize QR codes in order to open electronic lock
 
 We advise you to use the product with our website https://keymanager.theiotproject.com/, mobile app and to visit our blog https://theiotproject.com/
 # Inputs 
