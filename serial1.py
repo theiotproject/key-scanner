@@ -23,10 +23,10 @@ def on_connect(client, userdata, flags, rc):
  
 Connected = False   #global variable for the state of the connection
  
-broker_address= "192.168.8.164"
+broker_address= "s39.mydevil.net"
 port = 1883
-user = "nikodem"
-password = "nikodem"
+user = ""
+password = ""
  
 client = mqttClient.Client("Publisher")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
