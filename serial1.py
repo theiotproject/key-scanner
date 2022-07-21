@@ -6,7 +6,7 @@ import syslog
 from datetime import datetime
 import datetime
 import paho.mqtt.client as mqttClient
-
+import json
  
 def on_connect(client, userdata, flags, rc):
  
@@ -25,8 +25,8 @@ Connected = False   #global variable for the state of the connection
  
 broker_address= "s39.mydevil.net"
 port = 1883
-user = ""
-password = ""
+user = "nikodem"
+password = "nikodem"
  
 client = mqttClient.Client("Publisher")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
@@ -89,7 +89,11 @@ def opening():
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
-
+publishing={
+	"keyUsageId": "d5faf58e-f05c-41a8-a206-3c493e575077",
+	"createdAt": "2022-07-20T14 :48: 05.000Z",
+	"status": "accessGranted"
+}
 def validate(code):
     if len(code)==30:
         if regg(code[-10:]):
