@@ -26,7 +26,7 @@ def on_connect(client, userdata, flags, rc):
         print("Connected to broker")
   
         global Connected                #Use global variable
-        Connected = True                #Signal connection 
+        Connected = True                #Signal connection
   
     else:
   
@@ -37,9 +37,9 @@ def on_message(client, userdata, message):
     var=var.decode()
     print (var)
     #ser.write(message.payload+ b'w')
-    sql="INSERT INTO events (message) values (%s)"
+    sql="INSERT INTO events (message, created_at) values (%s, %s)"
     val=(var)
-    cursor.execute(sql,(val,))
+    cursor.execute(sql,(val[28:],val[:28],))
     mydb.commit()
     #syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
   
@@ -47,8 +47,8 @@ Connected = False   #global variable for the state of the connection
   
 broker_address= "mysql39.mydevil.net"  #Broker address
 port = 1883                         #Broker port
-user = ""                    #Connection username
-password = ""            #Connection password
+user = "nikodem"                    #Connection username
+password = "nikodem"            #Connection password
   
 client = mqttClient.Client("DB")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
