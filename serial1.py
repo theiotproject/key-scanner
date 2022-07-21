@@ -25,8 +25,8 @@ Connected = False   #global variable for the state of the connection
  
 broker_address= "s39.mydevil.net"
 port = 1883
-user = "nikodem"
-password = "nikodem"
+user = ""
+password = ""
  
 client = mqttClient.Client("Publisher")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
