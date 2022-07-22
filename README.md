@@ -64,7 +64,7 @@ lock has tollerance of ```+-1 minute```, so the key will expire one minute after
   - enter valid credentials in core.py your database and correct hosts to all the brokers and other hosts
   - deploy MQTTlogPush.py on the same server
   - run command ```mosquitto <path_to_config_file>``` and ```python MQTTlogPush.py```
-  - start all cloned scripts starting with virtual.py and evrything should be set up
+  - start all cloned scripts using command bash start in the containing folder
   
   
   
