@@ -9,6 +9,9 @@ import paho.mqtt.client as mqttClient
 import json
 from datetime import date
  
+ser_nm="923842098394"
+topic="/iotlocks/v1/{}/event".format(ser_nm)
+
 def on_connect(client, userdata, flags, rc):
  
     if rc == 0:
@@ -23,8 +26,8 @@ def on_connect(client, userdata, flags, rc):
         print("Connection failed")
  
 Connected = False   #global variable for the state of the connection
- 
-broker_address= "s39.mydevil.net"
+
+broker_address= ""
 port = 1883
 user = ""
 password = ""
@@ -77,25 +80,27 @@ def comparing(pas):
     var=var[:-1]
     if str(pas)==str(var):
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
-        client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
-        opening()
+        #client.publish(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
+        opening(pas,pas)
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
-        client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH MAGIC FILE"))
-def opening():
+        client.publish(topic,(str(datetime.datetime.now())+";"+None+";"+"0"+";"+pas))
+        #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH MAGIC FILE"))
+def opening(GUID,code):
     GPIO.output(shot, False)
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK OPENED"))
+    client.publish(topic,(str(datetime.datetime.now())+";"+GUID+";"+"1"+";"+code))
+    print((str(datetime.datetime.now())+";"+GUID+";"+"1"+code))
     time.sleep(10)
     GPIO.output(shot,True)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
-    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
+    #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
 
 #OPEN:ID:a716ea50-09b9-11ed-9743-07e33a4825a1;CA:2022-07-22 14:27:29;G:923842098394,309485394865;
-ser_nm="923842098394"
+
 
 print (list)
 def time_in_range(start, end, current):
@@ -151,20 +156,38 @@ def validate_time(datestr,current,list):
         else:
             return False
 def start(code):
-    list=code[:-1].split(';')
-    current = datetime.datetime.now().time()
-    today=date.today()
-    list=code.split(';')
-    sublist=list[0].split(':')
-    print(sublist)
-    datestr=list[1]
-    datestr=datestr[3:]
-    yr=datestr[:10]
-    if yr==str(today):
-        if validate_time(datestr,current,list):
-            guidl=list[0].split(':')
-            print(guidl)
-            opening()
+    if code[:3]=="OPEN":
+        list=code[:-1].split(';')
+        current = datetime.datetime.now().time()
+        today=date.today()
+        #list=code.split(';')
+        sublist=list[0].split(':')
+        print(sublist)
+        datestr=list[1]
+        datestr=datestr[3:]
+        yr=datestr[:10]
+        GUID=sublist[2]
+        print(GUID)
+        if isValidGUID(GUID):
+            if yr==str(today):
+                if validate_time(datestr,current,list):
+                        guidl=list[0].split(':')
+                        print(guidl)
+                        opening(GUID,code)
+                        return True
+                else:
+                    client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                    return False
+            else:
+                client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                return False
+        else:
+            client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+            return False
+    else:
+        return False
+    
+
 
 
 
@@ -191,23 +214,25 @@ try:
         if pas!="":
             print(pas)
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
-            client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
+            #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
             if isValidGUID(pas)==True:
-                comparing(pas)
+                comparing(pas)  
             elif start(pas):
-                client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
+                #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             else:
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
-                client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH ANYTHING"))
+                client.publish(topic,(str(datetime.datetime.now()))+";"+" "+";"+"0"+";"+pas)
+                #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH ANYTHING"))
              
 except :
     if(GPIO.input(shot)==0):
                 GPIO.output(shot,True)
-                
+    ser.close()
     syslog.syslog(syslog.LOG_WARNING,"SCRIPT TERMINATED")
     client.disconnect()
     client.loop_stop()
+    ser.close()
 GPIO.cleanup()    
     
     

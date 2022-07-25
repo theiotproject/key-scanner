@@ -26,7 +26,7 @@ def on_connect(client, userdata, flags, rc):
         print("Connected to broker")
   
         global Connected                #Use global variable
-        Connected = True                #Signal connection
+        Connected = True                #Signal connection 
   
     else:
   
@@ -37,18 +37,23 @@ def on_message(client, userdata, message):
     var=var.decode()
     print (var)
     #ser.write(message.payload+ b'w')
-    sql="INSERT INTO events (message, created_at) values (%s, %s)"
+    list=var.split(';')
+    time=list[0]
+    GUID=list[1]
+    status=list[2]
+    qr=list[3]
+    sql="INSERT INTO events (GUID, scan_time, status,qr_code) values (%s, %s, %s,%s)"
     val=(var)
-    cursor.execute(sql,(val[28:],val[:28],))
+    cursor.execute(sql,(GUID,time,status,qr,))
     mydb.commit()
     #syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
   
 Connected = False   #global variable for the state of the connection
   
-broker_address= "mysql39.mydevil.net"  #Broker address
+broker_address= ""  #Broker address
 port = 1883                         #Broker port
-user = "nikodem"                    #Connection username
-password = "nikodem"            #Connection password
+user = ""                    #Connection username
+password = ""            #Connection password
   
 client = mqttClient.Client("DB")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
@@ -62,7 +67,7 @@ client.loop_start()        #start the loop
 while Connected != True:    #Wait for connection
     time.sleep(0.1)
   
-client.subscribe("dev/pub")
+client.subscribe("/iotlocks/v1/+/event")
   
 try:
     while True:

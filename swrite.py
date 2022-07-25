@@ -19,8 +19,12 @@ ser2 = serial.Serial(
         timeout=1
 )
 counter=0
+try:
+        while 1:
+                x=ser2.readline()
+                ser.write(x)
+                time.sleep(1)
+except :
+        ser.close()
+        ser2.close()
 
-while 1:
-        x=ser2.readline()
-        ser.write(x)
-        time.sleep(1)

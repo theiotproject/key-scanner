@@ -65,5 +65,6 @@ try:
   
 except KeyboardInterrupt:
     print ("exiting")
+    ser.close()
     client.disconnect()
     client.loop_stop()
