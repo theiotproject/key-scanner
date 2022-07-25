@@ -7,6 +7,7 @@ from datetime import datetime
 import datetime
 import paho.mqtt.client as mqttClient
 import json
+from datetime import date
  
 def on_connect(client, userdata, flags, rc):
  
@@ -25,8 +26,8 @@ Connected = False   #global variable for the state of the connection
  
 broker_address= "s39.mydevil.net"
 port = 1883
-user = "nikodem"
-password = "nikodem"
+user = ""
+password = ""
  
 client = mqttClient.Client("Publisher")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
@@ -49,7 +50,10 @@ ser = serial.Serial(
     timeout=1
 )
 def time_in_range(start, end, current):
-    return start <= current <= end
+     if start <= end:
+        return start <= current <= end
+     else:
+        return start <= current or current <= end
 def regg(text):
     regex="[A-Z0-9]{10}"
    
@@ -89,40 +93,82 @@ def opening():
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
-publishing={
-	"keyUsageId": "d5faf58e-f05c-41a8-a206-3c493e575077",
-	"createdAt": "2022-07-20T14 :48: 05.000Z",
-	"status": "accessGranted"
-}
-def validate(code):
-    if len(code)==30:
-        if regg(code[-10:]):
-            current = datetime.datetime.now().time()
-            ctime=datetime.time(int(code[11]+code[12]),int(code[14]+code[15]),0)
-            if(current.minute==00):
-                print("00")
-                start = datetime.time(current.hour-1, 59, 0)
-                end = datetime.time(current.hour, current.minute+1, 59)
-                if (time_in_range(start, end, ctime)):
-                    print("00")
-                    opening_key()
-            elif(current.minute==59):
-                start = datetime.time(current.hour, current.minute-1, 0)
-                end = datetime.time(current.hour+1, 00, 59)
-                if (time_in_range(start, end, ctime)):
-                    print("59")
-                    opening_key()
-            else:
-                start = datetime.time(current.hour, current.minute-1, 0)
-                end = datetime.time(current.hour, current.minute+1, 59)
-                print(start, end)
-                if (time_in_range(start, end, ctime)):
-                    print(current)
-                    opening_key()
+
+#OPEN:ID:a716ea50-09b9-11ed-9743-07e33a4825a1;CA:2022-07-22 14:27:29;G:923842098394,309485394865;
+ser_nm="923842098394"
+
+print (list)
+def time_in_range(start, end, current):
+     if start <= end:
+        return start <= current <= end
+     else:
+        return start <= current or current <= end
+
+def check_num(list):
+    for x in list:
+        if x==ser_nm:
+            return True
         else:
             return False
-    else: 
-        return False
+
+def validate_time(datestr,current,list):
+   
+    temp=list[2]
+
+    list1=temp[2:].split(',')
+    print(list1)
+        
+    #print(dateobj)
+    print(datestr)
+    print(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
+    ctime=datetime.time(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
+    if(current.minute==00):
+        print("00")
+        start = datetime.time(current.hour-1, 59, 0)
+        end = datetime.time(current.hour, current.minute+1, 59)
+        if (time_in_range(start, end, ctime)):
+            if check_num(list1):
+                return True
+        else:
+            return False
+           
+    elif(current.minute==59):
+        start = datetime.time(current.hour, current.minute-1, 0)
+        end = datetime.time(current.hour+1, 00, 59)
+        if (time_in_range(start, end, ctime)):
+            if check_num(list1):
+                return True
+        else:
+            return False
+            
+    else:
+        start = datetime.time(current.hour, current.minute-1, 0)
+        end = datetime.time(current.hour, current.minute+1, 59)
+        print(start, end)
+        if (time_in_range(start, end, ctime)):
+            if check_num(list1):
+                return True
+        else:
+            return False
+def start(code):
+    list=code[:-1].split(';')
+    current = datetime.datetime.now().time()
+    today=date.today()
+    list=code.split(';')
+    sublist=list[0].split(':')
+    print(sublist)
+    datestr=list[1]
+    datestr=datestr[3:]
+    yr=datestr[:10]
+    if yr==str(today):
+        if validate_time(datestr,current,list):
+            guidl=list[0].split(':')
+            print(guidl)
+            opening()
+
+
+
+
 def opening_key():
     GPIO.output(shot, False)
     print("lock opened")
@@ -148,7 +194,7 @@ try:
             client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
             if isValidGUID(pas)==True:
                 comparing(pas)
-            elif validate(pas):
+            elif start(pas):
                 client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             else:
