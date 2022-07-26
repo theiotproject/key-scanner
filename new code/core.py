@@ -1,56 +1,37 @@
 import time
 import re
 import serial
-import RPi.GPIO as GPIO
 import syslog
 from datetime import datetime
 import datetime
 import paho.mqtt.client as mqttClient
 import json
 from datetime import date
- 
+import pin 
+from pin import *
+
+#from pythonlog import pub
+
+fb=open("/etc/point")
+temp=fb.read()
+temp=temp[:-1]
+if temp=="test":
+    
+    from pythonlogtest import *
+
+elif temp=="dev":
+    from pythonlogdev import *
 ser_nm="923842098394"
 topic="/iotlocks/v1/{}/event".format(ser_nm)
-
-def on_connect(client, userdata, flags, rc):
- 
-    if rc == 0:
- 
-        print("Connected to broker")
- 
-        global Connected                #Use global variable
-        Connected = True                #Signal connection 
- 
-    else:
- 
-        print("Connection failed")
- 
-Connected = False   #global variable for the state of the connection
-
-broker_address= "s39.mydevil.net"
-port = 1883
-user = "nikodem"
-password = "nikodem"
- 
-client = mqttClient.Client("Publisher")               #create new instance
-client.username_pw_set(user, password=password)    #set username and password
-client.on_connect= on_connect                      #attach function to callback
-client.connect(broker_address, port=port)          #connect to broker
- 
-client.loop_start()        #start the loop
- 
-while Connected != True:    #Wait for connection
-    time.sleep(0.1)
-
 shot=2
-GPIO.setwarnings(False)
+fel()
 ser = serial.Serial(
     port='/dev/ttyS91',
     baudrate = 9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
-    timeout=1
+    timeout=2
 )
 def time_in_range(start, end, current):
      if start <= end:
@@ -81,20 +62,23 @@ def comparing(pas):
     if str(pas)==str(var):
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
         #client.publish(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
+        pub(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
         opening(pas,pas)
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
-        client.publish(topic,(str(datetime.datetime.now())+";"+None+";"+"0"+";"+pas))
+        #client.publish(topic,(str(datetime.datetime.now())+";"+None+";"+"0"+";"+pas))
+        pub(topic,(str(datetime.datetime.now())+";"+None+";"+"0"+";"+pas))
         #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH MAGIC FILE"))
 def opening(GUID,code):
-    GPIO.output(shot, False)
+    up(shot)
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-    client.publish(topic,(str(datetime.datetime.now())+";"+GUID+";"+"1"+";"+code))
+    #client.publish(topic,(str(datetime.datetime.now())+";"+GUID+";"+"1"+";"+code))
+    pub(topic,(str(datetime.datetime.now())+";"+GUID+";"+"1"+";"+code))
     print((str(datetime.datetime.now())+";"+GUID+";"+"1"+code))
     time.sleep(10)
-    GPIO.output(shot,True)
+    down(shot)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
@@ -176,13 +160,16 @@ def start(code):
                         opening(GUID,code)
                         return True
                 else:
-                    client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                    #client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                    pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
                     return False
             else:
-                client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                #client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
                 return False
         else:
-            client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+            #client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+            pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
             return False
     else:
         return False
@@ -193,21 +180,21 @@ def start(code):
 
 
 def opening_key():
-    GPIO.output(shot, False)
+    up()
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK.OPENED"))
+    #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK.OPENED"))
     time.sleep(15)
-    GPIO.output(shot,True)
+    down()
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
-    client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
+    #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
 try:
     while 1:
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(shot,GPIO.OUT)
-        if(GPIO.input(shot)==0):
-            GPIO.output(shot,True)
+        ser.flushInput()
+        sett(shot)
+        if(chinp(shot)==0):
+            down(shot)
         inp=ser.readline()
         pas=inp.decode("utf-8")
         pas=pas[0:-1]
@@ -219,21 +206,23 @@ try:
                 comparing(pas)  
             elif start(pas):
                 #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
+                #pub(topic,(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             else:
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
-                client.publish(topic,(str(datetime.datetime.now()))+";"+" "+";"+"0"+";"+pas)
+                #client.publish(topic,(str(datetime.datetime.now()))+";"+" "+";"+"0"+";"+pas)
+                pub(topic,";"+(str(datetime.datetime.now()))+";"+" "+";"+"0"+";"+pas)
                 #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH ANYTHING"))
+                print("nie pasuje")
              
 except :
-    if(GPIO.input(shot)==0):
-                GPIO.output(shot,True)
+    if chinp(shot)==0:
+                down
     ser.close()
     syslog.syslog(syslog.LOG_WARNING,"SCRIPT TERMINATED")
-    client.disconnect()
-    client.loop_stop()
+    client_end(client)
     ser.close()
-GPIO.cleanup()    
+cleanup()   
     
     
 	

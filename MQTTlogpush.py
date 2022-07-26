@@ -50,10 +50,10 @@ def on_message(client, userdata, message):
   
 Connected = False   #global variable for the state of the connection
   
-broker_address= ""  #Broker address
+broker_address= "mysql39.mydevil.net"  #Broker address
 port = 1883                         #Broker port
-user = ""                    #Connection username
-password = ""            #Connection password
+user = "nikodem"                    #Connection username
+password = "nikodem"            #Connection password
   
 client = mqttClient.Client("DB")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
