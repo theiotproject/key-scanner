@@ -140,7 +140,7 @@ def validate_time(datestr,current,list):
         else:
             return False
 def start(code):
-    if code[:3]=="OPEN":
+    if code[:4]=="OPEN":
         list=code[:-1].split(';')
         current = datetime.datetime.now().time()
         today=date.today()
@@ -172,6 +172,7 @@ def start(code):
             pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
             return False
     else:
+        print("nie ma open")
         return False
     
 
