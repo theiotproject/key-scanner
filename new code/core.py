@@ -19,7 +19,7 @@ ser = serial.Serial(
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
-    timeout=2
+    timeout=1
 )
 fb=open("/etc/point")
 temp=fb.read()
@@ -68,7 +68,7 @@ def comparing(pas):
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
         #client.publish(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
         #pub(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
-        pub(topic,(str(pas+"/"+ser_nm+"/"+"Opened using magic code"+"/"+str(datetime.datetime.now())+"/"+"1"+"/"+pas)))
+        pub(topic,(str(pas+">"+ser_nm+">"+"Opened using magic code"+">"+str(datetime.datetime.now())+">"+"1"+">"+pas)))
         opening(pas,pas)
     else:
         print("nie zgadza sie")
