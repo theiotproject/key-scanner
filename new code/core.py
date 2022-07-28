@@ -12,19 +12,7 @@ from pin import *
 
 #from pythonlog import pub
 
-fb=open("/etc/point")
-temp=fb.read()
-temp=temp[:-1]
-if temp=="test":
-    
-    from pythonlogtest import *
-
-elif temp=="dev":
-    from pythonlogdev import *
-ser_nm="923842098394"
-topic="/iotlocks/v1/{}/event".format(ser_nm)
-shot=2
-fel()
+#GUID;serial_number;message;time;qr;status
 ser = serial.Serial(
     port='/dev/ttyS91',
     baudrate = 9600,
@@ -33,6 +21,23 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
     timeout=2
 )
+fb=open("/etc/point")
+temp=fb.read()
+temp=temp[:-1]
+if temp=="test":
+    
+    from pythonlogtest import *
+
+elif temp=="dev":
+    import pythonlogdev
+    from pythonlogdev import pub
+    from pythonlogdev import on_connect
+    from pythonlogdev import client_end
+ser_nm="923842098394"
+topic="/iotlocks/v1/{}/event".format(ser_nm)
+shot=2
+fel()
+
 def time_in_range(start, end, current):
      if start <= end:
         return start <= current <= end
@@ -62,25 +67,26 @@ def comparing(pas):
     if str(pas)==str(var):
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
         #client.publish(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
-        pub(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
+        #pub(topic,(str(datetime.datetime.now())+": SCANNED CODE MATCHING MAGIC FILE"))
+        pub(topic,(str(pas+"/"+ser_nm+"/"+"Opened using magic code"+"/"+str(datetime.datetime.now())+"/"+"1"+"/"+pas)))
         opening(pas,pas)
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
-        #client.publish(topic,(str(datetime.datetime.now())+";"+None+";"+"0"+";"+pas))
-        pub(topic,(str(datetime.datetime.now())+";"+None+";"+"0"+";"+pas))
-        #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH MAGIC FILE"))
+        #client.publish(topic,(str(datetime.datetime.now())+"/"+None+">"+"0"+">"+pas))
+        #pub(topic,(str(datetime.datetime.now())+">"+None+">"+"0"+">"+pas))
+        #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH MAGIC FILE"))
 def opening(GUID,code):
     up(shot)
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-    #client.publish(topic,(str(datetime.datetime.now())+";"+GUID+";"+"1"+";"+code))
-    pub(topic,(str(datetime.datetime.now())+";"+GUID+";"+"1"+";"+code))
-    print((str(datetime.datetime.now())+";"+GUID+";"+"1"+code))
+    #client.publish(topic,(str(datetime.datetime.now())+"\"+GUID+"\"+"1"+"\"+code))
+    #pub(topic,(str(datetime.datetime.now())+"\"+GUID+"\"+"1"+"\"+code))
+    #print((str(datetime.datetime.now())+"\"+GUID+"\"+"1"+code))
     time.sleep(10)
     down(shot)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
-    #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
+    #client.publish("dev\pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
 
 #OPEN:ID:a716ea50-09b9-11ed-9743-07e33a4825a1;CA:2022-07-22 14:27:29;G:923842098394,309485394865;
@@ -157,23 +163,26 @@ def start(code):
                 if validate_time(datestr,current,list):
                         guidl=list[0].split(':')
                         print(guidl)
+                        pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
                         opening(GUID,code)
                         return True
                 else:
-                    #client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
-                    pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                    #client.publish(topic,(str(datetime.datetime.now()))+">"+ GUID +">"+"0"+">"+code)
+                    #pub(topic,(str(datetime.datetime.now()))+">"+ GUID +">"+"0"+">"+code)
+                    pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                     return False
             else:
-                #client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
-                pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+                #client.publish(topic,(str(datetime.datetime.now()))+">"+ GUID +">"+"0"+">"+code)
+                pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                 return False
         else:
-            #client.publish(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
-            pub(topic,(str(datetime.datetime.now()))+";"+ GUID +";"+"0"+";"+code)
+            #client.publish(topic,(str(datetime.datetime.now()))+">"+ GUID +">"+"0"+">"+code)
+            pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
             return False
     else:
         print("nie ma open")
         return False
+    
     
 
 
@@ -184,11 +193,11 @@ def opening_key():
     up()
     print("lock opened")
     syslog.syslog(syslog.LOG_INFO,"LOCK OPENED")
-    #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK.OPENED"))
+    #client.publish("dev>pub",(str(datetime.datetime.now())+": LOCK.OPENED"))
     time.sleep(15)
     down()
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
-    #client.publish("dev/pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
+    #client.publish("dev>pub",(str(datetime.datetime.now())+": LOCK CLOSED"))
     print("Lock closed")
 try:
     while 1:
@@ -202,18 +211,19 @@ try:
         if pas!="":
             print(pas)
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
-            #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
+            #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
             if isValidGUID(pas)==True:
                 comparing(pas)  
             elif start(pas):
-                #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
+                #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
                 #pub(topic,(str(datetime.datetime.now())+": SCANNED CODE IS A VALID VIRTUAL KEY"))
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
-            else:
+            elif pas[:4]!="OPEN":
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
-                #client.publish(topic,(str(datetime.datetime.now()))+";"+" "+";"+"0"+";"+pas)
-                pub(topic,";"+(str(datetime.datetime.now()))+";"+" "+";"+"0"+";"+pas)
-                #client.publish("dev/pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH ANYTHING"))
+                #client.publish(topic,(str(datetime.datetime.now()))+">"+" "+">"+"0"+">"+pas)
+                #pub(topic,">"+(str(datetime.datetime.now()))+">"+" "+">"+"0"+">"+pas)
+                pub(topic,(str(" "+">"+ser_nm+">"+"Code does not match anything"+">"+str(datetime.datetime.now())+">"+"0"+">"+pas)))
+                #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE DOES NOT MATCH ANYTHING"))
                 print("nie pasuje")
              
 except :
