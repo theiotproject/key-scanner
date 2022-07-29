@@ -8,10 +8,11 @@ import paho.mqtt.client as mqttClient
 import json
 from datetime import date
 import pin 
+import settings
 from pin import *
 
 #from pythonlog import pub
-
+#settings.init()
 #GUID;serial_number;message;time;qr;status
 ser = serial.Serial(
     port='/dev/ttyS91',
@@ -35,7 +36,7 @@ elif temp=="dev":
     from pythonlogdev import client_end
 ser_nm="923842098394"
 topic="/iotlocks/v1/{}/event".format(ser_nm)
-shot=2
+shot=14
 fel()
 
 def time_in_range(start, end, current):
@@ -100,10 +101,13 @@ def time_in_range(start, end, current):
         return start <= current or current <= end
 
 def check_num(list):
+    pom=0
     for x in list:
         if x==ser_nm:
+            pom=1
             return True
-        else:
+            
+    if pom==0:
             return False
 
 def validate_time(datestr,current,list):
