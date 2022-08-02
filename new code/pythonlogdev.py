@@ -2,7 +2,7 @@ import paho.mqtt.client as mqttClient
 import time
 def pub(topic,message):
     client.publish(topic,message)
-    print("dev")
+    #print("dev")
 def on_connect(client, userdata, flags, rc):
 
     if rc == 0:

@@ -6,6 +6,7 @@ import paho.mqtt.client as mqttClient
 import time
 import re
 import syslog
+#import settings
 
 ser = serial.Serial(
         port='/dev/ttyS90', 
@@ -63,7 +64,7 @@ try:
     while True:
         time.sleep(1)
   
-except KeyboardInterrupt:
+except :
     print ("exiting")
     ser.close()
     client.disconnect()

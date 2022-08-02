@@ -1,6 +1,8 @@
 python virtual.py &
 sleep 2
 python core.py &
-python write.py &
-python write2.py 
+python write2.py &
+
+
+python write.py
 
