@@ -70,6 +70,8 @@ def comparing(pas):
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
+
+
 def opening(GUID,code):
     up(shot)
     print("lock opened")
@@ -101,12 +103,6 @@ def check_num(list):
             return False
 
 def validate_time(datestr,current,list):
-   
-    temp=list[2]
-
-    list1=temp[2:].split(',')
-    print(list1)
-        
     print(datestr)
     print(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
     ctime=datetime.time(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
@@ -115,7 +111,7 @@ def validate_time(datestr,current,list):
         start = datetime.time(current.hour-1, 59, 0)
         end = datetime.time(current.hour, current.minute+1, 59)
         if (time_in_range(start, end, ctime)):
-            if check_num(list1):
+            if check_num(list):
                 return True
         else:
             return False
@@ -124,7 +120,7 @@ def validate_time(datestr,current,list):
         start = datetime.time(current.hour, current.minute-1, 0)
         end = datetime.time(current.hour+1, 00, 59)
         if (time_in_range(start, end, ctime)):
-            if check_num(list1):
+            if check_num(list):
                 return True
         else:
             return False
@@ -134,35 +130,46 @@ def validate_time(datestr,current,list):
         end = datetime.time(current.hour, current.minute+1, 59)
         print(start, end)
         if (time_in_range(start, end, ctime)):
-            if check_num(list1):
+            if check_num(list):
                 return True
         else:
             return False
-def start(code):
-    con=str(code+teamid)
-    signature=hash(con)
-    print("hash:", signature)
-    if code[:4]=="OPEN":
-        list=code[:-1].split(';')
-        print("list: ", list)
-        current = datetime.datetime.now().time()
-        print("current time: ", current)
-        today=date.today()
-        #list=code.split(';')
-        sublist=list[0].split(':')
-        print(sublist)
-        datestr=list[1]
-        datestr=datestr[3:]
-        yr=datestr[:10]
-        print("date str ", datestr)
+def deserialize(code):
+    list=code.split(";")
+    if len(list)==4:
+        sublist=list[0].split(":")
+        command=sublist[0]
         GUID=sublist[2]
+        datestr=str(list[1])[3:]
+        gates=list[2].split(":")
+        gateslist=gates[1].split(",")
+        print(list)
+        print("command ", command)
         print(GUID)
+        print(datestr)
+        print(gateslist)
+        return command, GUID, datestr, gateslist
+    elif len(list)==1:
+        list=code.split(":")
+        command=list[0]
+        GUID=list[1]
+        datestr=0
+        gateslist=0
+        return command, GUID, datestr, gateslist
+        
+
+
+
+def start(code):
+    command, GUID, datestr,gateslist= deserialize(code)
+    if command=="OPEN":
+        current = datetime.datetime.now().time()
+        today=date.today()
+        yr=datestr[:10]
         if isValidGUID(GUID):
             print(isValidGUID(GUID))
             if yr==str(today):
-                if validate_time(datestr,current,list):
-                        guidl=list[0].split(':')
-                        print(guidl)
+                if validate_time(datestr,current,gateslist):
                         pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
                         opening(GUID,code)
                         return True
@@ -175,11 +182,20 @@ def start(code):
         else:
             pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
             return False
+    elif command=="WIFI":
+        print("placeholder WIFI")
+        return True
+    elif command=="MAGIC":
+        if isValidGUID(GUID):
+            comparing(GUID)
+            return True
+        else:
+            return False
+        
     else:
-        print("nie ma open")
         return False
-    
-    
+
+
 def hash(code):
     code=bytes(code, 'utf-8')
     code=hashlib.sha256(code)
@@ -210,9 +226,7 @@ try:
             print(pas)
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
             #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
-            if isValidGUID(pas)==True:
-                comparing(pas)  
-            elif start(pas):
+            if start(pas):
                 
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             elif pas[:4]!="OPEN":
