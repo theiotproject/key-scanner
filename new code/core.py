@@ -102,74 +102,77 @@ def check_num(list):
     if pom==0:
             return False
 
-def validate_time(datestr,current,list):
-    print(datestr)
-    print(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
-    ctime=datetime.time(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
-    if(current.minute==00):
+def validate_time(datestart,dateend,current,list):
+    #print(datestr)
+    #print(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
+    ctime=current
+    print("walidacja",ctime)
+    if(int(datestart[14]+datestart[15])==00):
         print("00")
-        start = datetime.time(current.hour-1, 59, 0)
-        end = datetime.time(current.hour, current.minute+1, 59)
+        start =datetime.time(int(datestart[11]+datestart[12]),int(datestart[14]+datestart[15]),0)
+        #start = datetime.time(current.hour-1, 59, 0)
+        end = datetime.time(int(dateend[11]+dateend[12]),int(dateend[14]+dateend[15]),0)
         if (time_in_range(start, end, ctime)):
+            print("spoko czas")
             if check_num(list):
                 return True
         else:
             return False
            
-    elif(current.minute==59):
-        start = datetime.time(current.hour, current.minute-1, 0)
-        end = datetime.time(current.hour+1, 00, 59)
+    elif(int(datestart[14]+datestart[15])==59):
+        start =datetime.time(int(datestart[11]+datestart[12]),int(datestart[14]+datestart[15]),0)
+        #start = datetime.time(current.hour-1, 59, 0)
+        end = datetime.time(int(dateend[11]+dateend[12]),int(dateend[14]+dateend[15]),0)
         if (time_in_range(start, end, ctime)):
+            print("spoko czas")
             if check_num(list):
                 return True
         else:
             return False
             
     else:
-        start = datetime.time(current.hour, current.minute-1, 0)
-        end = datetime.time(current.hour, current.minute+1, 59)
+        start =datetime.time(int(datestart[11]+datestart[12]),int(datestart[14]+datestart[15]),0)
+        #start = datetime.time(current.hour-1, 59, 0)
+        end = datetime.time(int(dateend[11]+dateend[12]),int(dateend[14]+dateend[15]),0)
         print(start, end)
         if (time_in_range(start, end, ctime)):
+            print("spoko czas")
             if check_num(list):
                 return True
         else:
             return False
 def deserialize(code):
+    code=code[:-2]
     list=code.split(";")
     if len(list)==4:
         sublist=list[0].split(":")
         command=sublist[0]
         GUID=sublist[2]
-        datestr=str(list[1])[3:]
-        gates=list[2].split(":")
+        datestart=str(list[1])[3:]
+        dateend=str(list[2])[3:]
+        gates=list[3].split(":")
         gateslist=gates[1].split(",")
         print(list)
         print("command ", command)
         print(GUID)
-        print(datestr)
+        print(datestart)
+        print(dateend)
         print(gateslist)
-        return command, GUID, datestr, gateslist
-    elif len(list)==1:
-        list=code.split(":")
-        command=list[0]
-        GUID=list[1]
-        datestr=0
-        gateslist=0
-        return command, GUID, datestr, gateslist
+        return command, GUID, datestart, gateslist, dateend
         
 
 
 
 def start(code):
-    command, GUID, datestr,gateslist= deserialize(code)
+    command, GUID, datestart,gateslist,dateend= deserialize(code)
     if command=="OPEN":
         current = datetime.datetime.now().time()
         today=date.today()
-        yr=datestr[:10]
+        yr=datestart[:10]
         if isValidGUID(GUID):
             print(isValidGUID(GUID))
             if yr==str(today):
-                if validate_time(datestr,current,gateslist):
+                if validate_time(datestart,dateend,current,gateslist):
                         pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
                         opening(GUID,code)
                         return True
