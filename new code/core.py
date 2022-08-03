@@ -37,11 +37,7 @@ topic="/iotlocks/v1/{}/event".format(ser_nm)
 shot=14
 fel()
 teamid="fbdn7y4"
-def time_in_range(start, end, current):
-     if start <= end:
-        return start <= current <= end
-     else:
-        return start <= current or current <= end
+
 def regg(text):
     regex="[A-Z0-9]{10}"
    
@@ -59,19 +55,17 @@ def isValidGUID(str):
         return True
     else:
         return False
-def comparing(pas):
+def comparing(pas,code):
     f=open("/etc/magic.guid","r")
     var=f.read()
     var=var[:-1]
     if str(pas)==str(var):
         syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
-        pub(topic,(str(pas+">"+ser_nm+">"+"Opened using magic code"+">"+str(datetime.datetime.now())+">"+"1"+">"+pas)))
-        opening(pas,pas)
+        pub(topic,(str(pas+">"+ser_nm+">"+"Opened using magic code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
+        opening(pas,code)
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
-
-
 def opening(GUID,code):
     up(shot)
     print("lock opened")
@@ -80,12 +74,6 @@ def opening(GUID,code):
     down(shot)
     syslog.syslog(syslog.LOG_INFO,"LOCK CLOSED")
     print("Lock closed")
-
-def time_in_range(start, end, current):
-     if start <= end:
-        return start <= current <= end
-     else:
-        return start <= current or current <= end
 
 def check_num(list):
     pom=0
@@ -101,49 +89,19 @@ def check_num(list):
             
     if pom==0:
             return False
-
-def validate_time(datestart,dateend,current,list):
-    #print(datestr)
-    #print(int(datestr[11]+datestr[12]),int(datestr[14]+datestr[15]),0)
-    ctime=current
-    print("walidacja",ctime)
-    if(int(datestart[14]+datestart[15])==00):
-        print("00")
-        start =datetime.time(int(datestart[11]+datestart[12]),int(datestart[14]+datestart[15]),0)
-        #start = datetime.time(current.hour-1, 59, 0)
-        end = datetime.time(int(dateend[11]+dateend[12]),int(dateend[14]+dateend[15]),0)
-        if (time_in_range(start, end, ctime)):
-            print("spoko czas")
-            if check_num(list):
-                return True
-        else:
-            return False
-           
-    elif(int(datestart[14]+datestart[15])==59):
-        start =datetime.time(int(datestart[11]+datestart[12]),int(datestart[14]+datestart[15]),0)
-        #start = datetime.time(current.hour-1, 59, 0)
-        end = datetime.time(int(dateend[11]+dateend[12]),int(dateend[14]+dateend[15]),0)
-        if (time_in_range(start, end, ctime)):
-            print("spoko czas")
-            if check_num(list):
-                return True
-        else:
-            return False
-            
-    else:
-        start =datetime.time(int(datestart[11]+datestart[12]),int(datestart[14]+datestart[15]),0)
-        #start = datetime.time(current.hour-1, 59, 0)
-        end = datetime.time(int(dateend[11]+dateend[12]),int(dateend[14]+dateend[15]),0)
-        print(start, end)
-        if (time_in_range(start, end, ctime)):
-            print("spoko czas")
-            if check_num(list):
-                return True
-        else:
-            return False
+def com(start,end,now):
+    start=datetime.datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S")
+    end=datetime.datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S")
+    print(start)
+    print(end)
+    print(now)
+    return start <= now <= end
 def deserialize(code):
+    list1=code.split(":")
+    print("list1: ", len(list1))
     code=code[:-2]
     list=code.split(";")
+    
     if len(list)==4:
         sublist=list[0].split(":")
         command=sublist[0]
@@ -159,26 +117,33 @@ def deserialize(code):
         print(dateend)
         print(gateslist)
         return command, GUID, datestart, gateslist, dateend
-        
-
-
-
+    elif len(list1)==2:
+        command=list1[0]
+        GUID=list1[1]
+        print(GUID)
+        datestart=0
+        dateend=0
+        gates=0
+        gateslist=0
+        return command, GUID, datestart, gateslist, dateend
+    else:
+        return "none",0,0,0,0
 def start(code):
+    
     command, GUID, datestart,gateslist,dateend= deserialize(code)
     if command=="OPEN":
-        current = datetime.datetime.now().time()
-        today=date.today()
-        yr=datestart[:10]
+        today=datetime.datetime.now()
+        yrs=datestart
+        yrend=dateend
         if isValidGUID(GUID):
-            print(isValidGUID(GUID))
-            if yr==str(today):
-                if validate_time(datestart,dateend,current,gateslist):
+            #print(isValidGUID(GUID))
+            if com(yrs,yrend,today):
+                if check_num(gateslist):
                         pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
                         opening(GUID,code)
                         return True
                 else:
-                    pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
-                    return False
+                    pub(topic,(str(GUID+">"+ser_nm+">"+"Code doesnt contain correct gate"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
             else:
                 pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                 return False
@@ -190,12 +155,12 @@ def start(code):
         return True
     elif command=="MAGIC":
         if isValidGUID(GUID):
-            comparing(GUID)
+            comparing(GUID,code)
             return True
         else:
             return False
         
-    else:
+    elif command=="none":
         return False
 
 
@@ -230,7 +195,6 @@ try:
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
             #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
             if start(pas):
-                
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             elif pas[:4]!="OPEN":
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
