@@ -13,14 +13,17 @@ ser2 = serial.Serial(
                 bytesize=serial.EIGHTBITS,
                 timeout=1
         )
-
+pom=0
 try:
         while 1:
                 #print(GPIO.input(26))
-                time.sleep(0.5)
-                if GPIO.input(26)==1:
+                time.sleep(1)
+                if pom==1:
                         os.system("./test")
-except:
+                        ser2.write
+                if GPIO.input(26)!=pom:
+                        pom=(not pom)
+except KeyboardInterrupt:
         ser2.flushOutput()
         ser2.flushInput()
         ser2.close()

@@ -64,7 +64,7 @@ try:
     while True:
         time.sleep(1)
   
-except :
+except KeyboardInterrupt:
     print ("exiting")
     ser.close()
     client.disconnect()

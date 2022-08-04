@@ -90,47 +90,56 @@ def check_num(list):
     if pom==0:
             return False
 def com(start,end,now):
-    start=datetime.datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S")
-    end=datetime.datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S")
+    try:
+        start=datetime.datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S")
+        end=datetime.datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S")
+    except:
+        return False
     #print(start)
     #print(end)
     #print(now)
     return start <= now <= end
 def deserialize(code):
-    list1=code.split(":")
-    #print("list1: ", len(list1))
-    code=code[:-2]
-    list=code.split(";")
-    
-    if len(list)==4:
-        sublist=list[0].split(":")
-        command=sublist[0]
-        GUID=sublist[2]
-        datestart=str(list[1])[3:]
-        dateend=str(list[2])[3:]
-        gates=list[3].split(":")
-        gateslist=gates[1].split(",")
-        #print(list)
-        #print("command ", command)
-        #print(GUID)
-        #print(datestart)
-        #print(dateend)
-        #print(gateslist)
-        return command, GUID, datestart, gateslist, dateend
-    elif len(list1)==2:
-        command=list1[0]
-        GUID=list1[1]
-        #print(GUID)
-        datestart=0
-        dateend=0
-        gates=0
-        gateslist=0
-        return command, GUID, datestart, gateslist, dateend
-    else:
+    try:
+        list1=code.split(":")
+        #print("list1: ", len(list1))
+        code=code[:-2]
+        list=code.split(";")
+
+        if len(list)==4:
+            sublist=list[0].split(":")
+            command=sublist[0]
+            GUID=sublist[2]
+            datestart=str(list[1])[3:]
+            dateend=str(list[2])[3:]
+            gates=list[3].split(":")
+            gateslist=gates[1].split(",")
+            #print(list)
+            #print("command ", command)
+            #print(GUID)
+            #print(datestart)
+            #print(dateend)
+            #print(gateslist)
+            return command, GUID, datestart, gateslist, dateend
+        elif len(list1)==2:
+            command=list1[0]
+            GUID=list1[1]
+            #print(GUID)
+            datestart=0
+            dateend=0
+            gates=0
+            gateslist=0
+            return command, GUID, datestart, gateslist, dateend
+        else:
+            
+            return "none",0,0,0,0
+    except:
+        
         return "none",0,0,0,0
 def start(code):
     
     command, GUID, datestart,gateslist,dateend= deserialize(code)
+    print("command: ",command)
     if command=="OPEN":
         today=datetime.datetime.now()
         yrs=datestart
@@ -200,6 +209,7 @@ try:
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
                 pub(topic,(str(" "+">"+ser_nm+">"+"Code does not match anything"+">"+str(datetime.datetime.now())+">"+"0"+">"+pas)))
                 #print("nie pasuje")
+        
              
 except :
     if chinp(shot)==0:
