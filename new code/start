@@ -2,7 +2,7 @@ python virtual.py &
 sleep 2
 python core.py &
 python write2.py &
-
+python czujnik.py &
 
 python write.py
 

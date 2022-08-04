@@ -92,13 +92,13 @@ def check_num(list):
 def com(start,end,now):
     start=datetime.datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S")
     end=datetime.datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S")
-    print(start)
-    print(end)
-    print(now)
+    #print(start)
+    #print(end)
+    #print(now)
     return start <= now <= end
 def deserialize(code):
     list1=code.split(":")
-    print("list1: ", len(list1))
+    #print("list1: ", len(list1))
     code=code[:-2]
     list=code.split(";")
     
@@ -110,17 +110,17 @@ def deserialize(code):
         dateend=str(list[2])[3:]
         gates=list[3].split(":")
         gateslist=gates[1].split(",")
-        print(list)
-        print("command ", command)
-        print(GUID)
-        print(datestart)
-        print(dateend)
-        print(gateslist)
+        #print(list)
+        #print("command ", command)
+        #print(GUID)
+        #print(datestart)
+        #print(dateend)
+        #print(gateslist)
         return command, GUID, datestart, gateslist, dateend
     elif len(list1)==2:
         command=list1[0]
         GUID=list1[1]
-        print(GUID)
+        #print(GUID)
         datestart=0
         dateend=0
         gates=0
@@ -199,7 +199,7 @@ try:
             elif pas[:4]!="OPEN":
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
                 pub(topic,(str(" "+">"+ser_nm+">"+"Code does not match anything"+">"+str(datetime.datetime.now())+">"+"0"+">"+pas)))
-                print("nie pasuje")
+                #print("nie pasuje")
              
 except :
     if chinp(shot)==0:
