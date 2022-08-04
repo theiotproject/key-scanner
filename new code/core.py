@@ -95,15 +95,11 @@ def com(start,end,now):
         end=datetime.datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S")
     except:
         return False
-    #print(start)
-    #print(end)
-    #print(now)
     return start <= now <= end
 def deserialize(code):
     try:
         list1=code.split(":")
-        #print("list1: ", len(list1))
-        code=code[:-2]
+        code=code[:-1]
         list=code.split(";")
 
         if len(list)==4:
@@ -113,18 +109,13 @@ def deserialize(code):
             datestart=str(list[1])[3:]
             dateend=str(list[2])[3:]
             gates=list[3].split(":")
+            gates[1]+=",salt"
+            print("gates: ",gates)
             gateslist=gates[1].split(",")
-            #print(list)
-            #print("command ", command)
-            #print(GUID)
-            #print(datestart)
-            #print(dateend)
-            #print(gateslist)
             return command, GUID, datestart, gateslist, dateend
         elif len(list1)==2:
             command=list1[0]
             GUID=list1[1]
-            #print(GUID)
             datestart=0
             dateend=0
             gates=0
@@ -139,13 +130,11 @@ def deserialize(code):
 def start(code):
     
     command, GUID, datestart,gateslist,dateend= deserialize(code)
-    print("command: ",command)
     if command=="OPEN":
         today=datetime.datetime.now()
         yrs=datestart
         yrend=dateend
         if isValidGUID(GUID):
-            #print(isValidGUID(GUID))
             if com(yrs,yrend,today):
                 if check_num(gateslist):
                         pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
@@ -171,17 +160,11 @@ def start(code):
         
     elif command=="none":
         return False
-
-
 def hash(code):
     code=bytes(code, 'utf-8')
     code=hashlib.sha256(code)
     code=code.hexdigest()
     return code
-
-
-
-
 def opening_key():
     up()
     print("lock opened")
@@ -202,13 +185,12 @@ try:
         if pas!="":
             print(pas)
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
-            #client.publish("dev>pub",(str(datetime.datetime.now())+": SCANNED CODE: "+str(pas)))
             if start(pas):
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             elif pas[:4]!="OPEN":
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
                 pub(topic,(str(" "+">"+ser_nm+">"+"Code does not match anything"+">"+str(datetime.datetime.now())+">"+"0"+">"+pas)))
-                #print("nie pasuje")
+
         
              
 except :
