@@ -60,7 +60,7 @@ def comparing(pas,code):
     var=f.read()
     var=var[:-1]
     if str(pas)==str(var):
-        syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
+        syslog.syslog(syslog.LOG_INFO,"SCANNED MATCHING MAGIC CODE")
         pub(topic,(str(pas+">"+ser_nm+">"+"Opened using magic code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
         opening(pas,code)
     else:
@@ -98,21 +98,32 @@ def com(start,end,now):
     return start <= now <= end
 def deserialize(code):
     try:
+        list2=code.split(";;")
+        print(list2)
+        #list2[0]+=";;"
+        code=list2[0]
         list1=code.split(":")
-        code=code[:-1]
         list=code.split(";")
-
-        if len(list)==4:
+        print (list)
+        
+        if 1:
+            
+            hashlist=list2[1].split(":")
+            sign=hashlist[1]
+            sign=sign[:-1]
+            print(code+";;J384CP1S")
+            signature=hash(code+";;J384CP1S")
+            print("sign: ",sign)
             sublist=list[0].split(":")
             command=sublist[0]
             GUID=sublist[2]
             datestart=str(list[1])[3:]
             dateend=str(list[2])[3:]
             gates=list[3].split(":")
-            gates[1]+=",salt"
+            #gates[1]+=",salt"
             print("gates: ",gates)
             gateslist=gates[1].split(",")
-            return command, GUID, datestart, gateslist, dateend
+            return command, GUID, datestart, gateslist, dateend,signature,sign
         elif len(list1)==2:
             command=list1[0]
             GUID=list1[1]
@@ -120,51 +131,56 @@ def deserialize(code):
             dateend=0
             gates=0
             gateslist=0
-            return command, GUID, datestart, gateslist, dateend
+            return command, GUID, datestart, gateslist, dateend, 0,0
         else:
             
-            return "none",0,0,0,0
+            return "none",0,0,0,0,0,0
     except:
-        
-        return "none",0,0,0,0
+        print("exception")
+        return "none",0,0,0,0,0,0
 def start(code):
+    command, GUID, datestart,gateslist,dateend, signature,sign = deserialize(code)
     
-    command, GUID, datestart,gateslist,dateend= deserialize(code)
-    if command=="OPEN":
-        today=datetime.datetime.now()
-        yrs=datestart
-        yrend=dateend
-        if isValidGUID(GUID):
-            if com(yrs,yrend,today):
-                if check_num(gateslist):
-                        pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
-                        opening(GUID,code)
-                        return True
+    print("signr: ", signature)
+    if str(sign) == signature:
+        if command=="OPEN":
+            today=datetime.datetime.now()
+            yrs=datestart
+            yrend=dateend
+            if isValidGUID(GUID):
+                if com(yrs,yrend,today):
+                    if check_num(gateslist):
+                            pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
+                            opening(GUID,code)
+                            return True
+                    else:
+                        pub(topic,(str(GUID+">"+ser_nm+">"+"Code doesnt contain correct gate"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                 else:
-                    pub(topic,(str(GUID+">"+ser_nm+">"+"Code doesnt contain correct gate"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                    pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                    return False
             else:
-                pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                 return False
-        else:
-            pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
-            return False
-    elif command=="WIFI":
-        print("placeholder WIFI")
-        return True
-    elif command=="MAGIC":
-        if isValidGUID(GUID):
-            comparing(GUID,code)
+        elif command=="WIFI":
+            print("placeholder WIFI")
             return True
-        else:
+        elif command=="MAGIC":
+            if isValidGUID(GUID):
+                comparing(GUID,code)
+                return True
+            else:
+                return False
+
+        elif command=="none":
             return False
-        
-    elif command=="none":
-        return False
+    else:
+                pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego podpisu"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                return False
 def hash(code):
     code=bytes(code, 'utf-8')
     code=hashlib.sha256(code)
-    code=code.hexdigest()
-    return code
+    #code=code.hexdigest()
+    return code.hexdigest()
 def opening_key():
     up()
     print("lock opened")
@@ -183,7 +199,9 @@ try:
         pas=inp.decode("utf-8")
         pas=pas[0:-1]
         if pas!="":
+            pas+=";"
             print(pas)
+            
             syslog.syslog(syslog.LOG_INFO,"Scanned code "+pas)
             if start(pas):
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
