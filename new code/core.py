@@ -102,12 +102,11 @@ def deserialize(code):
         print(list2)
         #list2[0]+=";;"
         code=list2[0]
-        list1=code.split(":")
         list=code.split(";")
         print (list)
-        
-        if 1:
-            
+        code1=code[:-1]
+        list1=code1.split(":")
+        if len(list1)==4:
             hashlist=list2[1].split(":")
             sign=hashlist[1]
             sign=sign[:-1]
@@ -140,13 +139,13 @@ def deserialize(code):
         return "none",0,0,0,0,0,0
 def start(code):
     command, GUID, datestart,gateslist,dateend, signature,sign = deserialize(code)
-    
-    print("signr: ", signature)
+    signature=str(signature)
+    print("signr: ", signature) 
+    today=datetime.datetime.now()
+    yrs=datestart
+    yrend=dateend
     if str(sign) == signature:
         if command=="OPEN":
-            today=datetime.datetime.now()
-            yrs=datestart
-            yrend=dateend
             if isValidGUID(GUID):
                 if com(yrs,yrend,today):
                     if check_num(gateslist):
