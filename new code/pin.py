@@ -10,8 +10,8 @@ def down(shot):
 def sett(shot):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(shot,GPIO.OUT)
-    syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
-    syslog.syslog(syslog.LOG_INFO,"info")
+    #syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
+    #syslog.syslog(syslog.LOG_INFO,"info")
 def chinp(shot):
     return GPIO.input(shot)
 def fel():

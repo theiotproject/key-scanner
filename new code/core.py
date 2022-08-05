@@ -106,13 +106,18 @@ def deserialize(code):
         print (list)
         code1=code[:-1]
         list1=code1.split(":")
-        if len(list1)==4:
-            hashlist=list2[1].split(":")
-            sign=hashlist[1]
-            sign=sign[:-1]
-            print(code+";;J384CP1S")
+        if len(list)==4:
+            hashlist=""
+            sign=""
             signature=hash(code+";;J384CP1S")
-            print("sign: ",sign)
+            if list2[1]!="":
+                hashlist=list2[1].split(":")
+                sign=hashlist[1]
+                sign=sign[:-1]
+                print(code+";;J384CP1S")
+                print("sign: ",sign)
+            else:
+                sign=""
             sublist=list[0].split(":")
             command=sublist[0]
             GUID=sublist[2]
@@ -121,7 +126,10 @@ def deserialize(code):
             gates=list[3].split(":")
             #gates[1]+=",salt"
             print("gates: ",gates)
+            print("przed splitem")
             gateslist=gates[1].split(",")
+            print("po splicie",gateslist)
+
             return command, GUID, datestart, gateslist, dateend,signature,sign
         elif len(list1)==2:
             command=list1[0]

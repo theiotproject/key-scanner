@@ -1,8 +1,53 @@
 import paho.mqtt.client as mqttClient
 import time
+import platform
+import subprocess
+
+
+def myping(host):
+    parameter = '-n' if platform.system().lower()=='windows' else '-c'
+
+    command = ['ping', parameter, '1', host]
+    response = subprocess.call(command)
+
+    if response == 0:
+        return True
+    else:
+        return False
+
 def pub(topic,message):
-    client.publish(topic,message)
-    #print("dev")
+    x=myping("s39.mydevil.net")
+    f=open("/etc/offlinelogs","r")
+    rea=f.readline()
+    print(rea)
+    if x and rea=="":
+        print("publishing")
+        client.publish(topic,message)
+        #client.publish(topic,message)
+        f.close()
+    elif x and rea!="":
+        f.close()
+        f=open("/etc/offlinelogs","r")
+        print("updating")
+        client.publish(topic,message)
+        for index, line in enumerate(f):
+                list=line.split(']')
+                client.publish(list[0],list[1])
+                
+        f.close()
+        ftd=open("/etc/offlinelogs","w")
+        ftd.close()
+        
+    else:
+        f.close()
+        f=open("/etc/offlinelogs","a")
+        print("dopisek")
+        f.write(topic+"]"+message)
+        f.close
+        
+
+
+    
 def on_connect(client, userdata, flags, rc):
 
     if rc == 0:
