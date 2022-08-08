@@ -11,7 +11,7 @@ import pin
 
 from pin import *
 import hashlib
-
+#/iotlocks/v1/9238420983/event]77a93f50-14b5-11ed-893e-430d6f2de857>9238420983>Kod nie zawiera poprawnego podpisu>2022-08-05 11:55:47.740004>0>OPEN:ID:77a93f50-14b5-11ed-893e-430d6f2de857;VF:2022-08-05 11:55:14;VT:2022-08-05 11:56:14;L:9238420983,0385984353,12346GDF13;;S:8239c39b91e62815a4e17e9a04a82990226b11b50a33f4712fef9395cc6876fb;
 ser = serial.Serial(
     port='/dev/ttyS91',
     baudrate = 9600,
@@ -89,6 +89,13 @@ def check_num(list):
             
     if pom==0:
             return False
+def blacklist(GUID):
+    f=open("/etc/blacklist","r")
+    for index, line in enumerate(f):
+                if GUID==line:
+                    return False
+    return True
+
 def com(start,end,now):
     try:
         start=datetime.datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S")
@@ -152,37 +159,41 @@ def start(code):
     today=datetime.datetime.now()
     yrs=datestart
     yrend=dateend
-    if str(sign) == signature:
-        if command=="OPEN":
-            if isValidGUID(GUID):
-                if com(yrs,yrend,today):
-                    if check_num(gateslist):
-                            pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
-                            opening(GUID,code)
-                            return True
+    if blacklist(GUID):
+        if str(sign) == signature:
+            if command=="OPEN":
+                if isValidGUID(GUID):
+                    if com(yrs,yrend,today):
+                        if check_num(gateslist):
+                                pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
+                                opening(GUID,code)
+                                return True
+                        else:
+                            pub(topic,(str(GUID+">"+ser_nm+">"+"Code doesnt contain correct gate"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                     else:
-                        pub(topic,(str(GUID+">"+ser_nm+">"+"Code doesnt contain correct gate"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                        pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                        return False
                 else:
-                    pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                    pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
                     return False
-            else:
-                pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
-                return False
-        elif command=="WIFI":
-            print("placeholder WIFI")
-            return True
-        elif command=="MAGIC":
-            if isValidGUID(GUID):
-                comparing(GUID,code)
+            elif command=="WIFI":
+                print("placeholder WIFI")
                 return True
-            else:
-                return False
+            elif command=="MAGIC":
+                if isValidGUID(GUID):
+                    comparing(GUID,code)
+                    return True
+                else:
+                    return False
 
-        elif command=="none":
-            return False
-    else:
-                pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego podpisu"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+            elif command=="none":
                 return False
+        else:
+                    pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego podpisu"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                    return False
+    else:
+        pub(topic,(str(GUID+">"+ser_nm+">"+"Kod znajduje się na czarnej liście"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+        return False
 def hash(code):
     code=bytes(code, 'utf-8')
     code=hashlib.sha256(code)

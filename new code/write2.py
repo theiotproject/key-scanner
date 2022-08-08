@@ -6,19 +6,38 @@ import paho.mqtt.client as mqttClient
 import time
 import re
 import syslog
+import platform
+import subprocess
 #import settings
 
-ser = serial.Serial(
-        port='/dev/ttyS90', 
-        baudrate = 9600,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        bytesize=serial.EIGHTBITS,
-        timeout=1
-)
+def append_new_line(file_name, text_to_append):
+    """Append given text as a new line at the end of file"""
+    # Open the file in append & read mode ('a+')
+    with open(file_name, "a+") as file_object:
+        # Move read cursor to the start of file.
+        file_object.seek(0)
+        # If file is not empty then append '\n'
+        data = file_object.read(100)
+        if len(data) > 0:
+            file_object.write("\n")
+        # Append text at the end of file
+        file_object.write(text_to_append)
+        file_object.close()
 
 
-  
+def on_message(client, userdata, message):
+    var=message.payload
+    var=var.decode()
+    print (var)
+    ser.write(message.payload+ b'w')
+    syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
+
+def on_message1(client, userdata, message):
+    var=message.payload
+    var=var.decode()
+    append_new_line("/etc/blacklist",var)
+
+    
 def on_connect(client, userdata, flags, rc):
   
     if rc == 0:
@@ -31,39 +50,63 @@ def on_connect(client, userdata, flags, rc):
     else:
   
         print("Connection failed")
-  
-def on_message(client, userdata, message):
-    var=message.payload
-    var=var.decode()
-    print (var)
-    ser.write(message.payload+ b'w')
-    syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
-  
 Connected = False   #global variable for the state of the connection
   
 broker_address= "192.168.8.164"  #Broker address
 port = 1883                         #Broker port
 user = "nikodem"                    #Connection username
-password = "nikodem"            #Connection password
-  
+password = "nikodem"     
+broker_add="s39.mydevil.net"       #Connection password
+
+client1 = mqttClient.Client("Blacklist")  
+client1.username_pw_set(user, password=password)
+client1.on_connect=on_connect
+client1.on_message=on_message1
 client = mqttClient.Client("Python")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
 client.on_connect= on_connect                      #attach function to callback
-client.on_message= on_message                      #attach function to callback
-  
-client.connect(broker_address, port=port)          #connect to broker
-  
-client.loop_start()        #start the loop
-  
-while Connected != True:    #Wait for connection
-    time.sleep(0.1)
-  
-client.subscribe("dev/test")
-  
+client.on_message= on_message  
+ser = serial.Serial(
+        port='/dev/ttyS90', 
+        baudrate = 9600,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize=serial.EIGHTBITS,
+        timeout=1
+)
+
+
+def myping(host):
+    parameter = '-n' if platform.system().lower()=='windows' else '-c'
+
+    command = ['ping', parameter, '1', host]
+    response = subprocess.call(command)
+
+    if response == 0:
+        return True
+    else:
+        return False
+controll=0
 try:
-    while True:
-        time.sleep(1)
-  
+    while 1:
+        if myping("s39.mydevil.net") and controll==0:
+            client.connect(broker_address, port=port)   
+            client1.connect(broker_add, port=port)       #connect to broker
+            client.loop_start()       
+            client1.loop_start() #start the loop
+            while Connected != True:    #Wait for connection
+                time.sleep(0.1)
+            client.subscribe("dev/test")
+            client1.subscribe("blacklist/9238420983")
+            controll=1
+        elif myping("s39.mydevil.net")==False:
+            client1.disconnect()
+            client1.loop_stop()
+            client.disconnect()
+            client.loop_stop()
+            controll=0
+        time.sleep(10)
+
 except KeyboardInterrupt:
     print ("exiting")
     ser.close()

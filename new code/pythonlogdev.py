@@ -21,14 +21,22 @@ def pub(topic,message):
     rea=f.readline()
     print(rea)
     if x and rea=="":
+        client.connect(broker_address, port=port) 
+        client.loop_start()
         print("publishing")
         client.publish(topic,message)
         #client.publish(topic,message)
         f.close()
+        client_end(client)
     elif x and rea!="":
         f.close()
         f=open("/etc/offlinelogs","r")
         print("updating")
+        client.connect(broker_address, port=port) 
+        client.loop_start()        #start the loop
+
+        while Connected != True:    #Wait for connection
+            time.sleep(0.1)
         client.publish(topic,message)
         for index, line in enumerate(f):
                 list=line.split(']')
@@ -37,16 +45,29 @@ def pub(topic,message):
         f.close()
         ftd=open("/etc/offlinelogs","w")
         ftd.close()
+        client_end(client)
         
     else:
         f.close()
-        f=open("/etc/offlinelogs","a")
+        #f=open("/etc/offlinelogs","a+")
+        #f.write(topic+"]"+message)
+        var=topic+"]"+message
+        append_new_line("/etc/offlinelogs",var)
         print("dopisek")
-        f.write(topic+"]"+message)
-        f.close
         
 
-
+def append_new_line(file_name, text_to_append):
+    """Append given text as a new line at the end of file"""
+    # Open the file in append & read mode ('a+')
+    with open(file_name, "a+") as file_object:
+        # Move read cursor to the start of file.
+        file_object.seek(0)
+        # If file is not empty then append '\n'
+        data = file_object.read(100)
+        if len(data) > 0:
+            file_object.write("\n")
+        # Append text at the end of file
+        file_object.write(text_to_append)
     
 def on_connect(client, userdata, flags, rc):
 
@@ -67,15 +88,12 @@ port = 1883
 user = "nikodem"
 password = "nikodem"
 
+
 client = mqttClient.Client("Publisher")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
 client.on_connect= on_connect                      #attach function to callback
-client.connect(broker_address, port=port)          #connect to broker
+         #connect to broker
 
-client.loop_start()        #start the loop
-
-while Connected != True:    #Wait for connection
-    time.sleep(0.1)
 def client_end(client):
     client.disconnect()
     client.loop_stop()
