@@ -38,10 +38,12 @@ def pub(topic,message):
         while Connected != True:    #Wait for connection
             time.sleep(0.1)
         client.publish(topic,message)
-        for index, line in enumerate(f):
+        try:
+            for index, line in enumerate(f):
                 list=line.split(']')
                 client.publish(list[0],list[1])
-                
+        except:
+            print("problem")        
         f.close()
         ftd=open("/etc/offlinelogs","w")
         ftd.close()

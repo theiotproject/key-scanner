@@ -11,7 +11,7 @@ import pin
 
 from pin import *
 import hashlib
-#/iotlocks/v1/9238420983/event]77a93f50-14b5-11ed-893e-430d6f2de857>9238420983>Kod nie zawiera poprawnego podpisu>2022-08-05 11:55:47.740004>0>OPEN:ID:77a93f50-14b5-11ed-893e-430d6f2de857;VF:2022-08-05 11:55:14;VT:2022-08-05 11:56:14;L:9238420983,0385984353,12346GDF13;;S:8239c39b91e62815a4e17e9a04a82990226b11b50a33f4712fef9395cc6876fb;
+
 ser = serial.Serial(
     port='/dev/ttyS91',
     baudrate = 9600,

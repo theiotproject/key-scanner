@@ -38,9 +38,12 @@ def on_message1(client, userdata, message):
     f.close()
     var=message.payload
     var=var.decode()
-    list=var.split(";")
-    for x in list:
-        append_new_line("/etc/blacklist",x)
+    try:
+        list=var.split(";")
+        for x in list:
+            append_new_line("/etc/blacklist",x)
+    except:
+            append_new_line("/etc/blacklist",var)
 
     
 def on_connect(client, userdata, flags, rc):
