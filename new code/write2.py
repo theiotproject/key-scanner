@@ -23,6 +23,7 @@ def append_new_line(file_name, text_to_append):
         # Append text at the end of file
         file_object.write(text_to_append)
         file_object.close()
+        
 
 
 def on_message(client, userdata, message):
@@ -33,9 +34,13 @@ def on_message(client, userdata, message):
     syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
 
 def on_message1(client, userdata, message):
+    f=open("/etc/blacklist","w")
+    f.close()
     var=message.payload
     var=var.decode()
-    append_new_line("/etc/blacklist",var)
+    list=var.split(";")
+    for x in list:
+        append_new_line("/etc/blacklist",x)
 
     
 def on_connect(client, userdata, flags, rc):
