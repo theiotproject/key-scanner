@@ -31,6 +31,7 @@ try:
                 #ser2.reset_input_buffer()
                 #ser.reset_output_buffer()
 except :
+        os.system("pkill python3")
         ser.close()
         ser2.close()
 

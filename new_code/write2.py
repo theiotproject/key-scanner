@@ -116,8 +116,9 @@ try:
             controll=0
         time.sleep(10)
 
-except KeyboardInterrupt:
+except:
     print ("exiting")
+    os.system("pkill python3")
     ser.close()
     client.disconnect()
     client.loop_stop()

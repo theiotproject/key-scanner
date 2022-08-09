@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import time
+import os
 import re
 import serial
 import syslog
@@ -234,6 +235,7 @@ except :
     if chinp(shot)==0:
                 down(shot)
     ser.close()
+    os.system("pkill python3")
     syslog.syslog(syslog.LOG_WARNING,"SCRIPT TERMINATED")
     client_end(client)
     ser.close()

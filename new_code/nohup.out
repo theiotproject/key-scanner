@@ -1,0 +1,1244 @@
+2022/08/09 11:37:35 socat[1732] N PTY is /dev/pts/1
+2022/08/09 11:37:35 socat[1732] N PTY is /dev/pts/2
+2022/08/09 11:37:35 socat[1732] N starting data transfer loop with FDs [5,5] and [7,7]
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.298/31.298/31.298/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=47.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 47.208/47.208/47.208/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.349/28.349/28.349/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.159/27.159/27.159/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=30.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.099/30.099/30.099/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.021/27.021/27.021/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.255/28.255/28.255/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.353/27.353/27.353/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.197/27.197/27.197/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.152/27.152/27.152/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.305/31.305/31.305/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=43.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 43.203/43.203/43.203/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.979/30.979/30.979/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=48.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 47.956/47.956/47.956/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.246/29.246/29.246/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.482/31.482/31.482/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=47.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 47.148/47.148/47.148/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=51.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 51.674/51.674/51.674/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=157 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 157.359/157.359/157.359/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.559/29.559/29.559/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=58.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 58.500/58.500/58.500/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.734/29.734/29.734/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.126/27.126/27.126/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.168/29.168/29.168/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.394/27.394/27.394/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=40.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 40.938/40.938/40.938/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=68.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 68.482/68.482/68.482/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.861/29.861/29.861/0.000 ms
+2022/08/09 11:40:22 socat[1732] N socat_signal(): handling signal 1
+2022/08/09 11:40:22 socat[1732] N exiting on signal 1
+2022/08/09 11:40:22 socat[1732] N socat_signal(): finishing signal 1
+2022/08/09 11:40:22 socat[1732] N exit(129)
+2022/08/09 11:40:22 socat[1732] N socat_signal(): handling signal 15
+2022/08/09 11:40:22 socat[1732] W exiting on signal 15
+2022/08/09 11:40:22 socat[1732] N socat_signal(): finishing signal 15
+2022/08/09 11:40:22 socat[1732] N exit(143)
+2022/08/09 12:02:18 socat[2146] N PTY is /dev/pts/3
+2022/08/09 12:02:18 socat[2146] N PTY is /dev/pts/4
+2022/08/09 12:02:18 socat[2146] N starting data transfer loop with FDs [5,5] and [7,7]
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=118 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 118.040/118.040/118.040/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=35.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 35.873/35.873/35.873/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.609/28.609/28.609/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=43.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 43.490/43.490/43.490/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=37.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 37.497/37.497/37.497/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.466/29.466/29.466/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=57.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 57.719/57.719/57.719/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=64.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 64.023/64.023/64.023/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=96.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 96.539/96.539/96.539/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=30.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.091/30.091/30.091/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.401/28.401/28.401/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=40.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 40.363/40.363/40.363/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=34.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 34.884/34.884/34.884/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=48.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 48.407/48.407/48.407/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=44.8 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 44.824/44.824/44.824/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=42.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 42.681/42.681/42.681/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=45.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 45.477/45.477/45.477/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.298/28.298/28.298/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=37.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 37.746/37.746/37.746/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=33.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 33.688/33.688/33.688/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.194/27.194/27.194/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.134/27.134/27.134/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.506/27.506/27.506/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=42.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 42.924/42.924/42.924/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=32.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 32.934/32.934/32.934/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.930/27.930/27.930/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.163/27.163/27.163/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=25.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 25.015/25.015/25.015/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.060/27.060/27.060/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.580/29.580/29.580/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=57.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 56.984/56.984/56.984/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=40.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 40.727/40.727/40.727/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=44.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 44.456/44.456/44.456/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.065/31.065/31.065/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=58.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 58.630/58.630/58.630/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=46.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 46.575/46.575/46.575/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.199/28.199/28.199/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=30.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.709/30.709/30.709/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=37.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 37.724/37.724/37.724/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.155/27.155/27.155/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=48.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 48.369/48.369/48.369/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=44.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 44.368/44.368/44.368/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=30.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.372/30.372/30.372/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.266/28.266/28.266/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=26.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 26.011/26.011/26.011/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.353/27.353/27.353/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=43.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 43.287/43.287/43.287/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.985/27.985/27.985/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.394/29.394/29.394/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.001/29.001/29.001/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.404/29.404/29.404/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.439/28.439/28.439/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.107/31.107/31.107/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.8 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.803/28.803/28.803/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.247/27.247/27.247/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.372/28.372/28.372/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=437 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 437.204/437.204/437.204/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=963 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 962.507/962.507/962.507/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=42.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 42.233/42.233/42.233/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=59.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 59.669/59.669/59.669/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=346 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 345.699/345.699/345.699/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=41.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 41.935/41.935/41.935/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=65.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 65.592/65.592/65.592/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=58.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 58.556/58.556/58.556/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=40.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 40.301/40.301/40.301/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=33.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 33.264/33.264/33.264/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=55.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 55.074/55.074/55.074/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.934/31.934/31.934/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=44.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 44.418/44.418/44.418/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=45.1 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 45.143/45.143/45.143/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.335/29.335/29.335/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=47.8 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 47.836/47.836/47.836/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=45.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 45.643/45.643/45.643/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=47.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 47.215/47.215/47.215/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=25.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 25.155/25.155/25.155/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.233/27.233/27.233/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.251/28.251/28.251/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=30.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.589/30.589/30.589/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=45.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 45.032/45.032/45.032/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=44.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 44.594/44.594/44.594/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=30.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 30.629/30.629/30.629/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=40.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 40.333/40.333/40.333/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=553 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 552.729/552.729/552.729/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=48.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 48.653/48.653/48.653/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=38.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 38.915/38.915/38.915/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=45.8 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 45.777/45.777/45.777/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=41.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 41.504/41.504/41.504/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=39.9 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 39.949/39.949/39.949/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=38.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 38.391/38.391/38.391/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=41.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 41.508/41.508/41.508/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=63.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 63.263/63.263/63.263/0.000 ms
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to broker
+Connected to brokerPING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.4 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.353/28.353/28.353/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=42.7 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 42.675/42.675/42.675/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.6 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.599/28.599/28.599/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=31.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 31.257/31.257/31.257/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=44.8 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 44.826/44.826/44.826/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=28.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.330/28.330/28.330/0.000 ms
+2022/08/09 12:11:51 socat[2146] N socat_signal(): handling signal 2
+2022/08/09 12:11:51 socat[2146] N exiting on signal 2
+2022/08/09 12:11:51 socat[2146] N socat_signal(): finishing signal 2
+2022/08/09 12:11:51 socat[2146] N exit(130)
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/serial/serialposix.py", line 557, in read
+    buf = os.read(self.fd, size - len(read))
+OSError: [Errno 5] Input/output error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/samba/shares/new code/core.py", line 217, in <module>
+    inp=ser.readline()
+  File "/usr/lib/python3/dist-packages/serial/serialposix.py", line 563, in read
+    raise SerialException('read failed: {}'.format(e))
+serial.serialutil.SerialException: read failed: [Errno 5] Input/output error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/samba/shares/new code/core.py", line 238, in <module>
+    client_end(client)
+NameError: name 'client' is not defined
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.0 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.042/29.042/29.042/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=33.2 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 33.231/33.231/33.231/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=29.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 29.482/29.482/29.482/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.3 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.256/27.256/27.256/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=51.5 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 51.465/51.465/51.465/0.000 ms
+PING s39.mydevil.net (85.194.242.93) 56(84) bytes of data.
+64 bytes from s39.mydevil.net (85.194.242.93): icmp_seq=1 ttl=117 time=27.8 ms
+
+--- s39.mydevil.net ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 27.807/27.807/27.807/0.000 ms

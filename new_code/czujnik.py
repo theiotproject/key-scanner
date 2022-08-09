@@ -20,11 +20,12 @@ try:
                 #print(GPIO.input(26))
                 time.sleep(1)
                 if pom==1:
-                        os.system("./test")
+                        os.system("/samba/shares/new_code/./test")
                         ser2.write
                 if GPIO.input(26)!=pom:
                         pom=(not pom)
-except KeyboardInterrupt:
+except:
         ser2.flushOutput()
         ser2.flushInput()
+        os.system("pkill python3")
         ser2.close()
