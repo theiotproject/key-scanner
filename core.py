@@ -27,13 +27,13 @@ temp=fb.read()
 temp=temp[:-1]
 if temp=="test":
     
-    from pythonlogtest import *
+    from pythonLogControl import *
 
 elif temp=="dev":
-    import pythonlogdev
-    from pythonlogdev import pub
-    from pythonlogdev import on_connect
-    from pythonlogdev import client_end
+    import pythonLogControl
+    from pythonLogControl import pub
+    from pythonLogControl import on_connect
+    from pythonLogControl import client_end
 ser_nm="9238420983"
 topic="/iotlocks/v1/{}/event".format(ser_nm)
 shot=14
