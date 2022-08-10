@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import paho.mqtt.client as mqttClient
 import time
 import platform
@@ -101,5 +100,4 @@ try:
     client.on_connect= on_connect                      #attach function to callback
              #connect to broker
 except:
-    os.system("pkill python3")
-
+    print("nie działa")

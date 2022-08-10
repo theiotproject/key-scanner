@@ -38,7 +38,7 @@ ser_nm="9238420983"
 topic="/iotlocks/v1/{}/event".format(ser_nm)
 shot=14
 fel()
-teamid="fbdn7y4"
+teamcode = "V7JWQE92BS"
 
 def regg(text):
     regex="[A-Z0-9]{10}"
@@ -47,7 +47,8 @@ def regg(text):
         return True
     else:
         return False
-
+#/etc/magic.guid
+#/etc/blacklist
 def isValidGUID(str):
     regex = "^[{]?[0-9a-fA-F]{8}" + "-([0-9a-fA-F]{4}-)" + "{3}[0-9a-fA-F]{12}[}]?$"
     p = re.compile(regex)
@@ -62,8 +63,9 @@ def comparing(pas,code):
     var=f.read()
     var=var[:-1]
     if str(pas)==str(var):
+        now=str(datetime.datetime.now())
         syslog.syslog(syslog.LOG_INFO,"SCANNED MATCHING MAGIC CODE")
-        pub(topic,(str(pas+">"+ser_nm+">"+"Opened using magic code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
+        pub(topic,(str(f"{pas}>{ser_nm}>Opened using magic code>{now}>1>{code}")))
         opening(pas,code)
     else:
         print("nie zgadza sie")
@@ -118,13 +120,13 @@ def deserialize(code):
         if len(list)==4:
             hashlist=""
             sign=""
-            signature=hash(code+";;J384CP1S")
+            signature=hash(code+";;"+teamcode)
             if list2[1]!="":
                 hashlist=list2[1].split(":")
                 sign=hashlist[1]
                 sign=sign[:-1]
-                print(code+";;J384CP1S")
-                print("sign: ",sign)
+                #print(code+";;J384CP1S")
+                #print("sign: ",sign)
             else:
                 sign=""
             sublist=list[0].split(":")
@@ -161,22 +163,23 @@ def start(code):
     today=datetime.datetime.now()
     yrs=datestart
     yrend=dateend
+    now=str(datetime.datetime.now())
     if blacklist(GUID):
         if str(sign) == signature:
             if command=="OPEN":
                 if isValidGUID(GUID):
                     if com(yrs,yrend,today):
                         if check_num(gateslist):
-                                pub(topic,(str(GUID+">"+ser_nm+">"+"Correct code"+">"+str(datetime.datetime.now())+">"+"1"+">"+code)))
+                                pub(topic,(str(f"{GUID}>{ser_nm}>Correct code>{now}>1>"+code)))
                                 opening(GUID,code)
                                 return True
                         else:
-                            pub(topic,(str(GUID+">"+ser_nm+">"+"Code doesnt contain correct gate"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                            pub(topic,(str(f"{GUID}>{ser_nm}>Code doesnt contain correct gate>{now}>0>{code}")))
                     else:
-                        pub(topic,(str(GUID+">"+ser_nm+">"+"Code expired"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                        pub(topic,(str(f"{GUID}>{ser_nm}>Code expired>{now}>0>{code}")))
                         return False
                 else:
-                    pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego GUID"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                    pub(topic,(str(f"{GUID}>{ser_nm}>Kod nie zawiera poprawnego GUID>{now}>0>{code}")))
                     return False
             elif command=="WIFI":
                 print("placeholder WIFI")
@@ -191,10 +194,10 @@ def start(code):
             elif command=="none":
                 return False
         else:
-                    pub(topic,(str(GUID+">"+ser_nm+">"+"Kod nie zawiera poprawnego podpisu"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+                    pub(topic,(str(f"{GUID}>{ser_nm}>Kod nie zawiera poprawnego podpisu>{now}>0>{code}")))
                     return False
     else:
-        pub(topic,(str(GUID+">"+ser_nm+">"+"Kod znajduje się na czarnej liście"+">"+str(datetime.datetime.now())+">"+"0"+">"+code)))
+        pub(topic,(str(f"{GUID}>{ser_nm}>Kod znajduje się na czarnej liście>{now}>0>{code}")))
         return False
 def hash(code):
     code=bytes(code, 'utf-8')
@@ -227,7 +230,7 @@ try:
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE IS A VALID VIRTUAL KEY")
             elif pas[:4]!="OPEN":
                 syslog.syslog(syslog.LOG_INFO,"SCANNED CODE DOES NOT MATCH ANYTHNG")
-                pub(topic,(str(" "+">"+ser_nm+">"+"Code does not match anything"+">"+str(datetime.datetime.now())+">"+"0"+">"+pas)))
+                pub(topic,(str(" "+">"+ser_nm+">Code does not match anything>"+str(datetime.datetime.now())+">0>"+pas)))
 
         
              
@@ -239,7 +242,9 @@ except :
     syslog.syslog(syslog.LOG_WARNING,"SCRIPT TERMINATED")
     client_end(client)
     ser.close()
-cleanup()   
+    cleanup()   
+
+
     
     
 	

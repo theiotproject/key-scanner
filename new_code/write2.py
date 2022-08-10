@@ -118,7 +118,7 @@ try:
 
 except:
     print ("exiting")
-    os.system("pkill python3")
+   
     ser.close()
     client.disconnect()
     client.loop_stop()
