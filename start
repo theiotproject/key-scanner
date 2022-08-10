@@ -1,5 +1,0 @@
-python virtual.py &
-sleep 2
-python serial1.py &
-python swrite.py &
-python swrite2.py
