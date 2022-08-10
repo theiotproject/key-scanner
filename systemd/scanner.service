@@ -9,7 +9,7 @@ Type=simple
 ExecStart=sh /etc/start.sh
 Restart=on-failure
 RestartSec=10
-KillMode=process
+KillMode=mixed
 
 [Install]
 WantedBy=multi-user.target
