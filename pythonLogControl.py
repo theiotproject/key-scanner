@@ -5,6 +5,7 @@ import subprocess
 import os
 
 
+offline="/etc/KeyScannerconf/offlinelogs"
 def myping(host):
     parameter = '-n' if platform.system().lower()=='windows' else '-c'
 
@@ -18,7 +19,7 @@ def myping(host):
 
 def pub(topic,message):
     x=myping("s39.mydevil.net")
-    f=open("/etc/offlinelogs","r")
+    f=open(offline,"r")
     rea=f.readline()
     print(rea)
     if x and rea=="":
@@ -31,7 +32,7 @@ def pub(topic,message):
         client_end(client)
     elif x and rea!="":
         f.close()
-        f=open("/etc/offlinelogs","r")
+        f=open(offline,"r")
         print("updating")
         client.connect(broker_address, port=port) 
         client.loop_start()        #start the loop
@@ -46,7 +47,7 @@ def pub(topic,message):
         except:
             print("problem")        
         f.close()
-        ftd=open("/etc/offlinelogs","w")
+        ftd=open(offline,"w")
         ftd.close()
         client_end(client)
         
@@ -55,7 +56,7 @@ def pub(topic,message):
         #f=open("/etc/offlinelogs","a+")
         #f.write(topic+"]"+message)
         var=topic+"]"+message
-        append_new_line("/etc/offlinelogs",var)
+        append_new_line(offline,var)
         print("dopisek")
         
 

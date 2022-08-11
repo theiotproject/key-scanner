@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from encodings.utf_8 import decode
 import time
 import serial
@@ -9,8 +8,24 @@ import re
 import syslog
 import platform
 import subprocess
-#import settings
+def conff():
+    try:
+        f=open("/etc/KeyScannerconf/magic.guid","r")
+        magic=f.read()
+        f.close()
+        f=open("/etc/KeyScannerconf/teamcode","r")
+        team=f.read()
+        f.close()
+        f=open("/etc/KeyScannerconf/serialnm","r")
+        serialnm=f.read()
+        f.close()
+        return team,magic,serialnm
+    except:
+        return "","",""
 
+teamcode,magic,serial_nm=conff()
+
+blacklist="/etc/KeyScannerconf/blacklist"
 def append_new_line(file_name, text_to_append):
     """Append given text as a new line at the end of file"""
     # Open the file in append & read mode ('a+')
@@ -32,16 +47,16 @@ def on_message(client, userdata, message):
     syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
 
 def on_message1(client, userdata, message):
-    f=open("/etc/blacklist","w")
+    f=open(blacklist,"w")
     f.close()
     var=message.payload
     var=var.decode()
     try:
         list=var.split(";")
         for x in list:
-            append_new_line("/etc/blacklist",x)
+            append_new_line(blacklist,x)
     except:
-            append_new_line("/etc/blacklist",var)
+            append_new_line(blacklist,var)
 
     
 def on_connect(client, userdata, flags, rc):
@@ -109,8 +124,8 @@ try:
                 client1.loop_start() #start the loop
                 while Connected != True:    #Wait for connection
                     time.sleep(0.1)
-                client.subscribe("iotlock/v1/V7JWQE92BS/control/9238420983")
-                client1.subscribe("blacklist/9238420983")
+                client.subscribe(f"iotlock/v1/{teamcode}/control/{serial_nm}")
+                client1.subscribe(f"iotlock/v1/{teamcode}/blacklist")
                 controll=1
             except:
                 syslog.syslog(syslog.LOG_INFO,"No connection")
