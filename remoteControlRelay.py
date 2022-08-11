@@ -28,9 +28,6 @@ def append_new_line(file_name, text_to_append):
 
 
 def on_message(client, userdata, message):
-    var=message.payload
-    var=var.decode()
-    print (var)
     ser.write(message.payload+ b'w')
     syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
 
@@ -60,8 +57,6 @@ def on_connect(client, userdata, flags, rc):
   
         print("Connection failed")
 Connected = False   #global variable for the state of the connection
-  
-broker_address= "192.168.8.164"  #Broker address
 port = 1883                         #Broker port
 user = "nikodem"                    #Connection username
 password = "nikodem"     
@@ -83,7 +78,15 @@ ser = serial.Serial(
         bytesize=serial.EIGHTBITS,
         timeout=1
 )
-
+def isValidGUID(str):
+    regex = "^[{]?[0-9a-fA-F]{8}" + "-([0-9a-fA-F]{4}-)" + "{3}[0-9a-fA-F]{12}[}]?$"
+    p = re.compile(regex)
+    if (str == None):
+        return False
+    if(re.search(p, str)):
+        return True
+    else:
+        return False
 
 def myping(host):
     parameter = '-n' if platform.system().lower()=='windows' else '-c'
@@ -99,15 +102,18 @@ controll=0
 try:
     while 1:
         if myping("s39.mydevil.net") and controll==0:
-            client.connect(broker_address, port=port)   
-            client1.connect(broker_add, port=port)       #connect to broker
-            client.loop_start()       
-            client1.loop_start() #start the loop
-            while Connected != True:    #Wait for connection
-                time.sleep(0.1)
-            client.subscribe("dev/test")
-            client1.subscribe("blacklist/9238420983")
-            controll=1
+            try:
+                client.connect(broker_add, port=port)   
+                client1.connect(broker_add, port=port)       #connect to broker
+                client.loop_start()       
+                client1.loop_start() #start the loop
+                while Connected != True:    #Wait for connection
+                    time.sleep(0.1)
+                client.subscribe("iotlock/v1/V7JWQE92BS/control/9238420983")
+                client1.subscribe("blacklist/9238420983")
+                controll=1
+            except:
+                syslog.syslog(syslog.LOG_INFO,"No connection")
         elif myping("s39.mydevil.net")==False:
             client1.disconnect()
             client1.loop_stop()
