@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except:
+    syslog.syslog(syslog.LOG_INFO,"Enviroment without GPIO support")
 
 import syslog
 def up(shot):
