@@ -110,10 +110,13 @@ def check_num(list):
             return False
 def blacklist(GUID):
     syslog.syslog(syslog.LOG_INFO,"17")
-    f=open("/etc/KeyScannerconf/blacklist","r")
-    for index, line in enumerate(f):
-                if GUID==line:
-                    return False
+    try:
+        f=open("/etc/KeyScannerconf/blacklist","r")
+        for index, line in enumerate(f):
+                    if GUID==line:
+                        return False
+    except:
+        syslog.syslog(syslog.LOG_INFO,"Invalid blacklist")
     syslog.syslog(syslog.LOG_INFO,"20")
     return True
 
@@ -197,7 +200,6 @@ def deserialize(code):
 def start(code):
     command, GUID, datestart,gateslist,dateend, signature,sign = deserialize(code)
     today=datetime.datetime.now()
-    syslog.syslog(syslog.LOG_INFO,(f"{sign},{signature}"))
     yrs=datestart
     yrend=dateend
     now=str(datetime.datetime.now())

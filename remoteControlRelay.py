@@ -125,7 +125,9 @@ try:
                 while Connected != True:    #Wait for connection
                     time.sleep(0.1)
                 client.subscribe(f"iotlock/v1/{teamcode}/control/{serial_nm}")
+                syslog.syslog(syslog.LOG_INFO,f"subscribed to iotlock/v1/{teamcode}/control/{serial_nm}")
                 client1.subscribe(f"iotlock/v1/{teamcode}/blacklist")
+                syslog.syslog(syslog.LOG_INFO,f"subscribed to iotlock/v1/{teamcode}/blacklist")
                 controll=1
             except:
                 syslog.syslog(syslog.LOG_INFO,"No connection")
