@@ -23,8 +23,7 @@ def conff():
         f=open("/etc/KeyScannerconf/serialnm","r")
         serialnm=f.read()
         f.close()
-        if teamcode=="" or serialnm=="" or magic =="":
-            syslog.syslog(syslog.LOG_INFO("Please finish your config"))
+        
             
         return team,magic,serialnm
     except:

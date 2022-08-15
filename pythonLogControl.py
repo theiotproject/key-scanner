@@ -97,7 +97,7 @@ try:
     password = "nikodem"
 
 
-    client = mqttClient.Client(random.randint(1000,9999))               #create new instance
+    client = mqttClient.Client("log")               #create new instance
     client.username_pw_set(user, password=password)    #set username and password
     client.on_connect= on_connect                      #attach function to callback
              #connect to broker

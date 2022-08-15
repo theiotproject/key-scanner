@@ -25,8 +25,6 @@ def conff():
         f=open("/etc/KeyScannerconf/serialnm","r")
         serialnm=f.read()
         f.close()
-        if teamcode=="" or serialnm=="" or magic =="":
-            syslog.syslog(syslog.LOG_INFO("Please finish your config"))
         return team,magic,serialnm
     except:
         return "","",""
@@ -48,9 +46,8 @@ if temp=="test":
 
 elif temp=="dev":
     import pythonLogControl
-    from pythonLogControl import pub
-    from pythonLogControl import on_connect
-    from pythonLogControl import client_end
+    from pythonLogControl import *
+   
 #ser_nm="9238420983"
 
 teamcode, magic,ser_nm = conff() 
