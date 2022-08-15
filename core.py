@@ -24,8 +24,9 @@ def conff():
         f.close()
         f=open("/etc/KeyScannerconf/serialnm","r")
         serialnm=f.read()
-        
         f.close()
+        if teamcode=="" or serialnm=="" or magic =="":
+            syslog.syslog(syslog.LOG_INFO("Please finish your config"))
         return team,magic,serialnm
     except:
         return "","",""
@@ -218,7 +219,7 @@ def start(code):
                         pub(topic,(str(f"{GUID}>{ser_nm}>Code expired>{now}>0>{code}")))
                         return False
                 else:
-                    pub(topic,(str(f"{GUID}>{ser_nm}>Kod doesn`t contain correct GUID>{now}>0>{code}")))
+                    pub(topic,(str(f"{GUID}>{ser_nm}>Code doesn`t contain correct GUID>{now}>0>{code}")))
                     return False
             elif command=="WIFI":
                 print("placeholder WIFI")
