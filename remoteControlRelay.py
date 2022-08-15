@@ -8,6 +8,8 @@ import re
 import syslog
 import platform
 import subprocess
+import random
+
 def conff():
     try:
         f=open("/etc/KeyScannerconf/magic.guid","r")
@@ -77,11 +79,11 @@ user = "nikodem"                    #Connection username
 password = "nikodem"     
 broker_add="s39.mydevil.net"       #Connection password
 
-client1 = mqttClient.Client("Blacklist")  
-client1.username_pw_set(user, password=password)
+client1 = mqttClient.Client(f'blacklist{serial_nm}')  
+client1.username_pw_set(user, password=password)    
 client1.on_connect=on_connect
 client1.on_message=on_message1
-client = mqttClient.Client("Python")               #create new instance
+client = mqttClient.Client(f'open{serial_nm}')               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
 client.on_connect= on_connect                      #attach function to callback
 client.on_message= on_message  
