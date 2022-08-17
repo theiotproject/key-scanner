@@ -132,33 +132,34 @@ def deserialize(code):
             list2=code.split(";;")
         except:
             syslog.syslog(syslog.LOG_INFO,"Split failure")
-        print(list2)
         code=list2[0]
         list=code.split(";")
-        print (list)
         code1=code[:-1]
         list1=code1.split(":")
+        syslog.syslog(syslog.LOG_INFO,"1")
+        syslog.syslog(syslog.LOG_INFO,f"{len(list)}")
         if len(list)==4:
             hashlist=""
             sign=""
             signature=hash(code+";;"+teamcode)
+            signature=signature[:-1]
             if list2[1]!="":
                 hashlist=list2[1].split(":")
                 sign=hashlist[1]
                 sign=sign[:-1]
             else:
                 sign=""
+            syslog.syslog(syslog.LOG_INFO,"2")
             sublist=list[0].split(":")
             command=sublist[0]
             GUID=sublist[2]
+            syslog.syslog(syslog.LOG_INFO,"3")
             datestart=str(list[1])[3:]
             dateend=str(list[2])[3:]
             gates=list[3].split(":")
-            print("gates: ",gates)
-            print("przed splitem")
+            syslog.syslog(syslog.LOG_INFO,"4")
             gateslist=gates[1].split(",")
-            print("po splicie",gateslist)
-        
+            syslog.syslog(syslog.LOG_INFO,"5")
             return command, GUID, datestart, gateslist, dateend,signature,sign
         elif len(list1)==2 and len(list)!=3:
             command=list1[0]
@@ -197,6 +198,7 @@ def deserialize(code):
         return "none",0,0,0,0,0,0
 def start(code):
     command, GUID, datestart,gateslist,dateend, signature,sign = deserialize(code)
+    syslog.syslog(syslog.LOG_INFO,(f"{sign}+{signature}"))
     today=datetime.datetime.now()
     yrs=datestart
     yrend=dateend

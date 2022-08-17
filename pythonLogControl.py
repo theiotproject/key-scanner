@@ -7,6 +7,7 @@ import random
 
 
 offline="/etc/KeyScannerconf/offlinelogs"
+
 def myping(host):
     parameter = '-n' if platform.system().lower()=='windows' else '-c'
 
@@ -17,7 +18,6 @@ def myping(host):
         return True
     else:
         return False
-
 def pub(topic,message):
     x=myping("s39.mydevil.net")
     f=open(offline,"r")

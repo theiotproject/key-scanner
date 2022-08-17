@@ -49,7 +49,7 @@ def append_new_line(file_name, text_to_append):
 
 
 def on_message(client, userdata, message):
-    ser.write(message.payload+ b'w')
+    ser.write(message.payload)
     syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
 
 def on_message1(client, userdata, message):
