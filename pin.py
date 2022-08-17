@@ -13,6 +13,7 @@ try:
         GPIO.output(shot,True)
         syslog.syslog(syslog.LOG_WARNING,"OPEN")
     def sett(shot):
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(shot,GPIO.OUT)
         #syslog.syslog(syslog.LOG_WARNING,"SCANNED MATCHING MAGIC CODE")
