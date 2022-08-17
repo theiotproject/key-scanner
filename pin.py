@@ -20,7 +20,6 @@ try:
     def chinp(shot):
         return GPIO.input(shot)
     def fel():
-        GPIO.setwarnings(False)
         print("")
     def cleanup():
         GPIO.cleanup() 

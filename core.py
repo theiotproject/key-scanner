@@ -78,8 +78,8 @@ def comparing(pas,code):
     if str(pas)==str(magic):
         now=str(datetime.datetime.now())
         syslog.syslog(syslog.LOG_INFO,"SCANNED MATCHING MAGIC CODE")
-        pub(topic,(str(f"{pas}>{ser_nm}>Opened using magic code>{now}>1>{code}")))
         opening(pas,code)
+        pub(topic,(str(f"{pas}>{ser_nm}>Opened using magic code>{now}>1>{code}")))
     else:
         print("nie zgadza sie")
         syslog.syslog(syslog.LOG_WARNING,"SCANNED CODE DOES NOT MATCH MAGIC FILE")
