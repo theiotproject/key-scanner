@@ -142,7 +142,7 @@ def deserialize(code):
             hashlist=""
             sign=""
             signature=hash(code+";;"+teamcode)
-            signature=signature[:-1]
+           # signature=signature[:-1]
             if list2[1]!="":
                 hashlist=list2[1].split(":")
                 sign=hashlist[1]
