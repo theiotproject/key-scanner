@@ -191,6 +191,9 @@ def deserialize(code):
                 f.write(list[2])
                 f.close()
                 os.system("chmod 0444 /etc/KeyScannerconf/serialnm")
+                syslog.syslog(syslog.LOG_INFO,"reboot")
+                os.system("systemctl restart scanner")
+                time.sleep(2)
                 return "none",0,0,0,0,0,0
             elif command=="CONFF":
                 syslog.syslog(syslog.LOG_INFO,"config")
@@ -206,6 +209,9 @@ def deserialize(code):
                 f.write(list[2])
                 f.close()
                 os.system("chmod 0444 /etc/KeyScannerconff/serialnm")
+                syslog.syslog(syslog.LOG_INFO,"reboot")
+                os.system("systemctl restart scanner")
+                time.sleep(2)
                 return "none",0,0,0,0,0,0
             
             
