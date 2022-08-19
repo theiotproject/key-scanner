@@ -1,11 +1,9 @@
 from encodings.utf_8 import decode
 import time
-#import serial
 import os
 import paho.mqtt.client as mqttClient
 import time
 import re
-#import syslog
 import mysql.connector
 
 mydb=mysql.connector.connect(
@@ -25,8 +23,8 @@ def on_connect(client, userdata, flags, rc):
   
         print("Connected to broker")
   
-        global Connected                #Use global variable
-        Connected = True                #Signal connection 
+        global Connected                
+        Connected = True                
   
     else:
   
@@ -36,7 +34,6 @@ def on_message(client, userdata, message):
     var=message.payload
     var=var.decode()
     print (var)
-    #ser.write(message.payload+ b'w')
     list=var.split('>')
     GUID=list[0]
     serial=list[1]
@@ -48,25 +45,24 @@ def on_message(client, userdata, message):
     val=(var)
     cursor.execute(sql,(GUID,serial,message,time,qr,status,))
     mydb.commit()
-    #syslog.syslog(syslog.LOG_INFO,"CODE FROM MQTT")
   
-Connected = False   #global variable for the state of the connection
+Connected = False   
   
-broker_address= "mysql39.mydevil.net"  #Broker address
-port = 1883                         #Broker port
-user = "nikodem"                    #Connection username
-password = "nikodem"            #Connection password
+broker_address= "mysql39.mydevil.net"  
+port = 1883                         
+user = "nikodem"                    
+password = "nikodem"            
   
-client = mqttClient.Client("DB")               #create new instance
-client.username_pw_set(user, password=password)    #set username and password
-client.on_connect= on_connect                      #attach function to callback
-client.on_message= on_message                      #attach function to callback
+client = mqttClient.Client("DB")               
+client.username_pw_set(user, password=password)    
+client.on_connect= on_connect                      
+client.on_message= on_message                      
   
-client.connect(broker_address, port=port)          #connect to broker
+client.connect(broker_address, port=port)         
 
-client.loop_start()        #start the loop
+client.loop_start()        
   
-while Connected != True:    #Wait for connection
+while Connected != True:    
     time.sleep(0.1)
   
 client.subscribe("/iotlocks/v1/+/event")
@@ -79,3 +75,4 @@ except KeyboardInterrupt:
     print ("exiting")
     client.disconnect()
     client.loop_stop()
+    os.system("python MQTTlogPUSH.py")

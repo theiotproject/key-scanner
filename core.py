@@ -130,14 +130,18 @@ def deserialize(code):
     try:
         try:
             list2=code.split(";;")
+            code=list2[0]
         except:
             syslog.syslog(syslog.LOG_INFO,"Split failure")
-        code=list2[0]
+        if code[:4]=="CONF":
+            code=code[:-1]
         list=code.split(";")
         code1=code[:-1]
         list1=code1.split(":")
         syslog.syslog(syslog.LOG_INFO,"1")
         syslog.syslog(syslog.LOG_INFO,f"{len(list)}")
+        for x in list:
+            syslog.syslog(syslog.LOG_INFO,f"{x}\n")
         if len(list)==4:
             hashlist=""
             sign=""
@@ -188,6 +192,22 @@ def deserialize(code):
                 f.close()
                 os.system("chmod 0444 /etc/KeyScannerconf/serialnm")
                 return "none",0,0,0,0,0,0
+            elif command=="CONFF":
+                syslog.syslog(syslog.LOG_INFO,"config")
+                f=open("/etc/KeyScannerconff/magic.guid","w")
+                f.write(sl[1])
+                f.close()
+                os.system("chmod 0444 /etc/KeyScannerconff/magic.guid",)
+                f=open("/etc/KeyScannerconff/teamcode","w")
+                f.write(list[1])
+                f.close()
+                os.system("chmod 0444 /etc/KeyScannerconff/teamcode")
+                f=open("/etc/KeyScannerconff/serialnm","w")
+                f.write(list[2])
+                f.close()
+                os.system("chmod 0444 /etc/KeyScannerconff/serialnm")
+                return "none",0,0,0,0,0,0
+            
             
         else:
             
